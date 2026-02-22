@@ -1,0 +1,38 @@
+// ============================================================================
+// Stage B — Resolution 9: Create ZoneCells for small IAL zones
+//
+// Creates new ZoneCell nodes at resolution 9 (~26 acres/cell)
+// for IAL dockets too small for res-7/res-8 coverage:
+//   DR10-42 (679 ac), DR13-50 (190 ac), DR18-61 (463 ac), DR18-63 (230 ac)
+//
+// Links them to IAL Zone nodes via IN_ZONE.
+//
+// Prerequisites:
+//   - IAL Zone nodes created via Stage A
+// ============================================================================
+
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/joehagedorn/neo4j/main/ag/IAL_Zones_H3_res9.csv' AS row
+
+WITH row,
+     trim(row.zone_id)      AS zone_id,
+     row.h3_cell             AS h3,
+     toInteger(row.resolution) AS res,
+     trim(row.version)       AS version,
+     row.data_source         AS data_source,
+     row.provenance          AS provenance
+
+// 1) Create or update ZoneCell at resolution 9
+MERGE (zc:ZoneCell {h3_cell: h3})
+SET zc.resolution  = res,
+    zc.source      = "ial_res9_polyfill_2026",
+    zc.created_at  = coalesce(zc.created_at, datetime()),
+    zc.updated_at  = datetime()
+
+// 2) Link to IAL Zone
+WITH zc, zone_id, version, data_source, provenance
+MATCH (z:Zone {id: zone_id})
+SET z.version     = coalesce(version, z.version),
+    z.data_source = coalesce(data_source, z.data_source),
+    z.provenance  = coalesce(provenance, z.provenance),
+    z.updated_at  = datetime()
+MERGE (zc)-[:IN_ZONE]->(z);
