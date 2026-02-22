@@ -1,96 +1,116 @@
-# 3 Stage A – Ingest IAL “zone” definitions from this CSV
-First, we turn each IAL docket into a Zone (type "ag") and/or an IAL-specific node.
-## 3.1 Suggested Zone ID and naming convention
-For each row:
+# Agricultural Zone Overlay — Seeding Guide
 
-zone_id → IAL_<docket_no> (e.g., IAL_DR08-37)
-zone_name → something like IAL DR08-37
-zone_type → "ag" (aligns with your ZoneType vocabulary)
+This folder implements the **2-stage pattern** for attaching agricultural data
+to the H3 spatial backbone via Zone and ZoneCell nodes.
 
-You can enrich later with version, data_source, and provenance.
-
-## 3.2 Minimal Cypher to create IAL Zones
-```
-LOAD CSV WITH HEADERS FROM 'file:///Important_Agricultural_Lands_(IAL).csv' AS row
-
-WITH row,
-     trim(row.docket_no) AS docket_no,
-     toFloat(row.acres)  AS acres,
-     toFloat(row.st_areashape) AS area_m2,
-     toFloat(row.st_perimetershape) AS perimeter_m,
-     "IAL_" + replace(docket_no, " ", "_") AS zone_id
-
-// 1 Create Zone for each IAL docket
-MERGE (z:Zone {id: zone_id})
-SET z.name        = "IAL " + docket_no,
-    z.type        = "ag",               // uses existing ZoneType 'ag'
-    z.ial         = true,               // flag: this is Important Agricultural Land
-    z.docket_no   = docket_no,
-    z.acres       = acres,
-    z.area_m2     = area_m2,
-    z.perimeter_m = perimeter_m,
-    z.data_source = "IAL shapefile / docket registry",
-    z.provenance  = "IAL docket-based designation; see docket_no",
-    z.created_at  = coalesce(z.created_at, datetime()),
-    z.updated_at  = datetime();
-``
-```
-This does not yet attach to H3, but it:
-
-Instantiates each IAL docket as a Zone of type "ag".
-Preserves legal & planning context (docket, acreage).
-Sets you up nicely for district-level governance and for later H3 linking.
-
-## 3.3 Optional: explicit IAL concept node
+## Architecture
 
 ```
-MERGE (ial:IALDesignation {docket_no: docket_no})
-SET ial.acres       = acres,
-    ial.area_m2     = area_m2,
-    ial.perimeter_m = perimeter_m;
-
-MERGE (z)-[:IS_IAL]->(ial);
+(:ZoneCell)-[:WITHIN]->(:Moku)          ← res-7 backbone (Stage 0, moku/)
+(:ZoneCell)-[:IN_ZONE]->(:Zone)         ← overlay link  (Stage B)
+(:Zone {type: "ag"})                    ← zone node      (Stage A)
 ```
-This lets you separate:
 
-Zone = operational overlay (H3-linked, used in scenarios, incentives).
-IALDesignation = legal/administrative concept.
+Zone nodes are lightweight metadata containers. ZoneCells are the spatial
+backbone. The IN_ZONE relationship is the bridge.
 
+---
 
+## Seeding Pattern — 2 Stages
 
-## 4 Stage B – Attach H3 cells once you have polyfills
+### Stage A — Create Zone nodes
 
-You’ll compute H3 polyfills externally from the IAL polygons (e.g., at resolution 9 or 10). Then you generate a CSV something like:
+One Zone per source feature. Each zone captures properties from the source
+dataset (acres, crop category, docket number, etc.).
+
+**Naming conventions**:
+| Dataset | zone_id pattern | Example |
+|---------|----------------|---------|
+| IAL dockets | `IAL_<docket_no>` | `IAL_DR08-37` |
+| Ag Land Use 2015 Baseline | `ALU_<objectid>` | `ALU_1` |
+
+All zones use `type: "ag"`.
+
+### Stage B — Link Zones to ZoneCells via IN_ZONE
+
+Each zone is linked to one or more existing ZoneCells. The approach depends
+on the dataset's feature size relative to H3 cell area:
+
+| Approach | When to use | Cells per feature |
+|----------|-------------|-------------------|
+| **Polyfill** (`polygonToCells`) | Features larger than an H3 cell | Multiple |
+| **Centroid** (`latLngToCell`) | Features smaller than an H3 cell | Exactly 1 |
+
+---
+
+## Datasets
+
+### IAL (Important Agricultural Lands)
+
+15 Zone nodes from 17 CSV rows (3 duplicates on DR14-52).
+
+**H3 strategy**: Multi-resolution polyfill
+- Res 7: 95 cells — links to existing backbone ZoneCells (no new nodes)
+- Res 8: 646 cells — new ZoneCells created, labeled `:IAL`
+- Res 9: 48 cells — new ZoneCells for 4 small dockets, labeled `:IAL`
+
+The `:IAL` label is applied only to res-8/9 cells (dedicated polyfill).
+Res-7 backbone cells link via IN_ZONE but keep no extra label.
+
+**Files**:
+| File | Purpose |
+|------|---------|
+| `Minimal_Cypher_to_create_IAL_Zones.cypher` | Stage A — create 15 Zone nodes |
+| `load-zone-cells.cypher` | Stage B — link res-7 backbone cells |
+| `load-zone-cells-res8.cypher` | Stage B — create + link res-8 cells |
+| `load-zone-cells-res9.cypher` | Stage B — create + link res-9 cells |
+| `generate-ial-h3.mjs` | Generates res-7 polyfill CSV (95 rows) |
+| `generate-ial-h3-multires.mjs` | Generates res-8 (646) + res-9 (48) CSVs |
+
+**Execution order**: Stage A, then Stage B (res-7, res-8, res-9).
+
+### Baseline (Agricultural Land Use 2015)
+
+5,024 Zone nodes — one per land use feature across 6 islands, 15 crop categories.
+
+**H3 strategy**: Centroid-based (median feature is 6.7 acres vs ~1,275 acres/cell at res-7).
+Each feature maps to exactly 1 res-7 cell via polygon centroid. No new ZoneCells created.
+
+- 4,846 zones linked (96.5%)
+- 178 zones unlinked — centroid falls in coastal/edge cells outside moku backbone
+- 670 unique res-7 cells used
+
+**Files** (in `baseline/`):
+| File | Purpose |
+|------|---------|
+| `create-baseline-zones.cypher` | Stage A — create 5,024 Zone nodes |
+| `load-baseline-zone-cells.cypher` | Stage B — link to existing res-7 ZoneCells |
+| `generate-baseline-h3.mjs` | Centroid → H3 res-7 CSV generation |
+
+**Execution order**: Stage A, then Stage B.
+
+---
+
+## Choosing an H3 Strategy for New Datasets
+
 ```
-zone_id,h3_cell,version,data_source,provenance
-IAL_DR08-37,892a04d23a3ffff,2026.01,"IAL polyfill 2026","Polyfill res9 from IAL DR08-37 polygon"
-IAL_DR08-37,892a04d23a7ffff,2026.01,"IAL polyfill 2026","Polyfill res9 from IAL DR08-37 polygon"
-IAL_DR09-38,892a04d2731ffff,2026.01,"IAL polyfill 2026","Polyfill res9 from IAL DR09-38 polygon"
-...
+Feature median acreage vs H3 cell area:
+  > 1,275 acres (res 7)  →  polyfill at res 7
+  > 183 acres  (res 8)   →  polyfill at res 8
+  > 26 acres   (res 9)   →  polyfill at res 9
+  < 26 acres             →  centroid at res 7
 ```
-Important: zone_id must match what we used above (IAL_<docket_no>).
-## 4.1 IAL H3 attach Cypher (using your existing pattern)
 
-```
-LOAD CSV WITH HEADERS FROM 'file:///IAL_Zones_H3.csv' AS row
+Most planning datasets with many small parcels will use the centroid approach.
+Large designated zones (IAL, conservation districts, etc.) benefit from polyfill.
 
-WITH row,
-     trim(row.zone_id)   AS zone_id,
-     row.h3_cell         AS h3,
-     trim(row.version)   AS version,
-     row.data_source     AS data_source,
-     row.provenance      AS provenance
+---
 
-// 1 Update Zone provenance/version if present
-MATCH (z:Zone {id: zone_id})
-SET z.version     = coalesce(version, z.version),
-    z.data_source = coalesce(data_source, z.data_source),
-    z.provenance  = coalesce(provenance, z.provenance),
-    z.updated_at  = datetime()
+## Staged Folders
 
-// 2 Attach ZoneCells by H3
-WITH z, h3
-MATCH (zc:ZoneCell {h3_cell: h3})
-MERGE (zc)-[:IN_ZONE]->(z);
-...
-```
+| Folder | Dataset | Status |
+|--------|---------|--------|
+| `ag/` | IAL dockets | Seeded |
+| `ag/baseline/` | Ag Land Use 2015 | Seeded |
+| `stewards/` | Government Land Ownership | Staged — not yet implemented |
+| `planning/` | Honolulu Zoning | Staged — not yet implemented |
