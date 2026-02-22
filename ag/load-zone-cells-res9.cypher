@@ -24,9 +24,10 @@ WITH row,
      row.data_source            AS data_source,
      row.provenance             AS provenance
 
-// 1) Create or update ZoneCell at resolution 9
+// 1) Create or update ZoneCell at resolution 9, label as IAL
 MERGE (zc:ZoneCell {h3_cell: h3})
-SET zc.resolution  = res,
+SET zc:IAL,
+    zc.resolution  = res,
     zc.source      = "ial_res9_polyfill_2026",
     zc.created_at  = coalesce(zc.created_at, datetime()),
     zc.updated_at  = datetime()
