@@ -4,7 +4,9 @@ WITH row,
      trim(row.docket_no) AS docket_no,
      toFloat(row.acres)  AS acres,
      toFloat(row.st_areashape) AS area_m2,
-     toFloat(row.st_perimetershape) AS perimeter_m,
+     toFloat(row.st_perimetershape) AS perimeter_m
+
+WITH docket_no, acres, area_m2, perimeter_m,
      "IAL_" + replace(docket_no, " ", "_") AS zone_id
 
 // 1) Create Zone for each IAL docket
