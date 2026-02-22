@@ -12,7 +12,8 @@
  */
 
 import { readFileSync, writeFileSync } from 'fs';
-import { polygonToCells } from 'h3-js';
+import { parse } from 'csv-parse/sync';
+import { polygonToCells, cellToParent } from 'h3-js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -42,12 +43,29 @@ function getH3CellsForGeometry(geometry, resolution) {
   return Array.from(allCells);
 }
 
-function writeCsv(filename, rows, resolution) {
-  const header = 'zone_id,h3_cell,resolution,version,data_source,provenance';
+function writeCsv(filename, rows) {
+  const header = 'zone_id,h3_cell,resolution,moku_id,version,data_source,provenance';
   const csv = [header, ...rows].join('\n') + '\n';
   const outPath = path.join(__dirname, filename);
   writeFileSync(outPath, csv, 'utf-8');
   console.log(`  Wrote ${rows.length} rows to ${filename}\n`);
+}
+
+// --- Build res-7 H3 → moku_id lookup from ZoneCell.csv ---
+
+const zoneCellCsv = readFileSync(path.join(__dirname, '..', 'moku', 'ZoneCell.csv'), 'utf-8');
+const zoneCellRows = parse(zoneCellCsv, { columns: true, skip_empty_lines: true });
+const h3ToMoku = new Map();
+for (const row of zoneCellRows) {
+  h3ToMoku.set(row.h3_index, row.moku_id);
+}
+
+/**
+ * Resolve moku_id for a higher-res H3 cell by walking up to its res-7 parent
+ */
+function getMokuId(h3Cell) {
+  const parent7 = cellToParent(h3Cell, 7);
+  return h3ToMoku.get(parent7) || '';
 }
 
 // --- Main ---
@@ -68,11 +86,12 @@ for (const feature of geojson.features) {
   const cells = getH3CellsForGeometry(feature.geometry, 8);
   const provenance = `Polyfill res8 from IAL ${docket} polygon`;
   for (const h3 of cells) {
-    res8Rows.push(`${zoneId},${h3},8,${VERSION},IAL polyfill 2026,${provenance}`);
+    const mokuId = getMokuId(h3);
+    res8Rows.push(`${zoneId},${h3},8,${mokuId},${VERSION},IAL polyfill 2026,${provenance}`);
   }
   console.log(`  ${zoneId} (${feature.properties.acres.toFixed(0)} acres): ${cells.length} cells`);
 }
-writeCsv('IAL_Zones_H3_res8.csv', res8Rows, 8);
+writeCsv('IAL_Zones_H3_res8.csv', res8Rows);
 
 // --- Resolution 9: small zones only ---
 console.log('--- Resolution 9 (small zones only, ~26 acres/cell) ---\n');
@@ -85,10 +104,11 @@ for (const feature of geojson.features) {
   const cells = getH3CellsForGeometry(feature.geometry, 9);
   const provenance = `Polyfill res9 from IAL ${docket} polygon`;
   for (const h3 of cells) {
-    res9Rows.push(`${zoneId},${h3},9,${VERSION},IAL polyfill 2026,${provenance}`);
+    const mokuId = getMokuId(h3);
+    res9Rows.push(`${zoneId},${h3},9,${mokuId},${VERSION},IAL polyfill 2026,${provenance}`);
   }
   console.log(`  ${zoneId} (${feature.properties.acres.toFixed(0)} acres): ${cells.length} cells`);
 }
-writeCsv('IAL_Zones_H3_res9.csv', res9Rows, 9);
+writeCsv('IAL_Zones_H3_res9.csv', res9Rows);
 
 console.log('=== Done ===');
