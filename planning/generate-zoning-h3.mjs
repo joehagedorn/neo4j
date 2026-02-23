@@ -1,7 +1,7 @@
 /**
- * Generate centroid-based H3 resolution-7 mapping for Honolulu Zoning districts
+ * Generate centroid-based H3 resolution-8 mapping for Honolulu Zoning districts
  *
- * Each of the 1,965 zoning features is mapped to a single res-7 H3 cell
+ * Each of the 1,965 zoning features is mapped to a single res-8 H3 cell
  * via its polygon centroid, linking it to the existing Oahu moku backbone.
  *
  * Run: node planning/generate-zoning-h3.mjs
@@ -73,10 +73,10 @@ for (const feature of geojson.features) {
   }
 
   const [lat, lng] = centroid;
-  const h3Cell = latLngToCell(lat, lng, 7);
-  const provenance = `Centroid res7 from HNL zoning objectid ${oid} polygon`;
+  const h3Cell = latLngToCell(lat, lng, 8);
+  const provenance = `Centroid res8 from HNL zoning objectid ${oid} polygon`;
 
-  rows.push(`${zoneId},${h3Cell},7,oahu,${VERSION},HNL zoning centroid 2026,${provenance}`);
+  rows.push(`${zoneId},${h3Cell},8,oahu,${VERSION},HNL zoning centroid 2026,${provenance}`);
 }
 
 // Write CSV
@@ -98,6 +98,6 @@ console.log(`\nZone classes: ${Object.keys(byClass).length}`);
 
 // Unique H3 cells
 const uniqueCells = new Set(rows.map(r => r.split(',')[1]));
-console.log(`Unique res-7 cells used: ${uniqueCells.size}`);
+console.log(`Unique res-8 cells used: ${uniqueCells.size}`);
 
 console.log('\n=== Done ===');

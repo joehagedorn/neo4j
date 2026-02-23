@@ -1,7 +1,7 @@
 /**
- * Generate centroid-based H3 resolution-7 mapping for HPMS Highway segments
+ * Generate centroid-based H3 resolution-8 mapping for HPMS Highway segments
  *
- * Each of the 2,075 road segments is mapped to a single res-7 H3 cell
+ * Each of the 2,075 road segments is mapped to a single res-8 H3 cell
  * via the midpoint of its LineString, linking to the existing moku backbone.
  *
  * Run: node highways/generate-highways-h3.mjs
@@ -84,10 +84,10 @@ for (const feature of geojson.features) {
   }
 
   const [lat, lng] = midpoint;
-  const h3Cell = latLngToCell(lat, lng, 7);
-  const provenance = `Midpoint res7 from HPMS segment objectid ${oid}`;
+  const h3Cell = latLngToCell(lat, lng, 8);
+  const provenance = `Midpoint res8 from HPMS segment objectid ${oid}`;
 
-  rows.push(`${zoneId},${h3Cell},7,${islandNorm},${VERSION},HPMS midpoint 2026,${provenance}`);
+  rows.push(`${zoneId},${h3Cell},8,${islandNorm},${VERSION},HPMS midpoint 2026,${provenance}`);
 }
 
 // Write CSV
@@ -110,6 +110,6 @@ for (const [island, count] of Object.entries(byIsland).sort((a, b) => b[1] - a[1
 }
 
 const uniqueCells = new Set(rows.map(r => r.split(',')[1]));
-console.log(`\nUnique res-7 cells used: ${uniqueCells.size}`);
+console.log(`\nUnique res-8 cells used: ${uniqueCells.size}`);
 
 console.log('\n=== Done ===');

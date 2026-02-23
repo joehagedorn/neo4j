@@ -2,7 +2,7 @@
  * Generate ZoneCell.csv from Moku District GeoJSON boundaries
  *
  * Reads moku_districts_rows.csv (which contains embedded GeoJSON geometry per row),
- * converts each moku polygon to H3 resolution-7 cells, and writes a ZoneCell.csv
+ * converts each moku polygon to H3 resolution-8 cells, and writes a ZoneCell.csv
  * with one row per H3 cell mapped to its moku district.
  *
  * Run: node generate-zone-cells.mjs
@@ -16,7 +16,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const H3_RESOLUTION = 7;
+const H3_RESOLUTION = 8;
 const INPUT_FILE = path.join(__dirname, 'moku_districts_rows.csv');
 const OUTPUT_FILE = path.join(__dirname, 'ZoneCell.csv');
 
@@ -60,7 +60,7 @@ function getH3CellsForGeometry(geometry) {
 // --- Main ---
 
 console.log('=== Moku District → H3 ZoneCell Transform ===\n');
-console.log(`H3 Resolution: ${H3_RESOLUTION} (~5.16 km² per cell)\n`);
+console.log(`H3 Resolution: ${H3_RESOLUTION} (~0.74 km² / ~183 ac per cell)\n`);
 
 // 1. Parse CSV
 console.log(`Reading ${INPUT_FILE}...`);

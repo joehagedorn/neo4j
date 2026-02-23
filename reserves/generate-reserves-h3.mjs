@@ -1,7 +1,7 @@
 /**
- * Generate centroid-based H3 resolution-7 mapping for Hawaii Reserves
+ * Generate centroid-based H3 resolution-8 mapping for Hawaii Reserves
  *
- * Each of the 376 reserve features is mapped to a single res-7 H3 cell
+ * Each of the 376 reserve features is mapped to a single res-8 H3 cell
  * via its polygon centroid, linking it to the existing moku backbone.
  *
  * Run: node reserves/generate-reserves-h3.mjs
@@ -86,10 +86,10 @@ for (const feature of geojson.features) {
   }
 
   const [lat, lng] = centroid;
-  const h3Cell = latLngToCell(lat, lng, 7);
-  const provenance = `Centroid res7 from reserve objectid ${oid} polygon`;
+  const h3Cell = latLngToCell(lat, lng, 8);
+  const provenance = `Centroid res8 from reserve objectid ${oid} polygon`;
 
-  rows.push(`${zoneId},${h3Cell},7,${islandNorm},${VERSION},Reserves centroid 2026,${provenance}`);
+  rows.push(`${zoneId},${h3Cell},8,${islandNorm},${VERSION},Reserves centroid 2026,${provenance}`);
 }
 
 // Write CSV
@@ -113,6 +113,6 @@ for (const [island, count] of Object.entries(byIsland).sort((a, b) => b[1] - a[1
 
 // Unique H3 cells
 const uniqueCells = new Set(rows.map(r => r.split(',')[1]));
-console.log(`\nUnique res-7 cells used: ${uniqueCells.size}`);
+console.log(`\nUnique res-8 cells used: ${uniqueCells.size}`);
 
 console.log('\n=== Done ===');

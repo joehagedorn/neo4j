@@ -11,7 +11,7 @@ import { readFileSync } from 'fs';
 import { parse } from 'csv-parse/sync';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { runWrite, runQuery, closeDriver } from './db.mjs';
+import { runWrite, runQuery, closeDriver } from '../db.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ZONE_CELL_CSV = path.join(__dirname, 'ZoneCell.csv');

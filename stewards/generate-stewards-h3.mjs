@@ -1,7 +1,7 @@
 /**
- * Generate centroid-based H3 resolution-7 mapping for Government Land Ownership
+ * Generate centroid-based H3 resolution-8 mapping for Government Land Ownership
  *
- * Each of the 25,129 government land parcels is mapped to a single res-7
+ * Each of the 25,129 government land parcels is mapped to a single res-8
  * H3 cell via its polygon centroid, linking to the existing moku backbone.
  *
  * Run: node stewards/generate-stewards-h3.mjs
@@ -85,10 +85,10 @@ for (const feature of geojson.features) {
   }
 
   const [lat, lng] = centroid;
-  const h3Cell = latLngToCell(lat, lng, 7);
-  const provenance = `Centroid res7 from govt land objectid ${oid} polygon`;
+  const h3Cell = latLngToCell(lat, lng, 8);
+  const provenance = `Centroid res8 from govt land objectid ${oid} polygon`;
 
-  rows.push(`${zoneId},${h3Cell},7,${islandNorm},${VERSION},Govt land centroid 2026,${provenance}`);
+  rows.push(`${zoneId},${h3Cell},8,${islandNorm},${VERSION},Govt land centroid 2026,${provenance}`);
 }
 
 // Write CSV
@@ -111,6 +111,6 @@ for (const [island, count] of Object.entries(byIsland).sort((a, b) => b[1] - a[1
 }
 
 const uniqueCells = new Set(rows.map(r => r.split(',')[1]));
-console.log(`\nUnique res-7 cells used: ${uniqueCells.size}`);
+console.log(`\nUnique res-8 cells used: ${uniqueCells.size}`);
 
 console.log('\n=== Done ===');
