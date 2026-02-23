@@ -6,7 +6,7 @@ to the H3 spatial backbone via Zone and ZoneCell nodes.
 ## Architecture
 
 ```
-(:ZoneCell)-[:WITHIN]->(:Moku)          ← res-7 backbone (Stage 0, moku/)
+(:ZoneCell)-[:WITHIN]->(:Moku)          ← res-8 backbone (Stage 0, moku/)
 (:ZoneCell)-[:IN_ZONE]->(:Zone)         ← overlay link  (Stage B)
 (:Zone {type: "ag"})                    ← zone node      (Stage A)
 ```
@@ -50,12 +50,10 @@ on the dataset's feature size relative to H3 cell area:
 15 Zone nodes from 17 CSV rows (3 duplicates on DR14-52).
 
 **H3 strategy**: Multi-resolution polyfill
-- Res 7: 95 cells — links to existing backbone ZoneCells (no new nodes)
-- Res 8: 646 cells — new ZoneCells created, labeled `:IAL`
-- Res 9: 48 cells — new ZoneCells for 4 small dockets, labeled `:IAL`
+- Res 8: 646 cells — ZoneCells with `:IAL` label (now part of the backbone resolution)
+- Res 9: 48 cells — ZoneCells for 4 small dockets, labeled `:IAL`
 
-The `:IAL` label is applied only to res-8/9 cells (dedicated polyfill).
-Res-7 backbone cells link via IN_ZONE but keep no extra label.
+The `:IAL` label is applied to dedicated polyfill cells at res-8/9 (694 total).
 
 **Files**:
 | File | Purpose |
@@ -64,28 +62,26 @@ Res-7 backbone cells link via IN_ZONE but keep no extra label.
 | `load-zone-cells.cypher` | Stage B — link res-7 backbone cells |
 | `load-zone-cells-res8.cypher` | Stage B — create + link res-8 cells |
 | `load-zone-cells-res9.cypher` | Stage B — create + link res-9 cells |
-| `generate-ial-h3.mjs` | Generates res-7 polyfill CSV (95 rows) |
 | `generate-ial-h3-multires.mjs` | Generates res-8 (646) + res-9 (48) CSVs |
 
-**Execution order**: Stage A, then Stage B (res-7, res-8, res-9).
+**Execution order**: Stage A, then Stage B (res-8, res-9).
 
 ### Baseline (Agricultural Land Use 2015)
 
-5,024 Zone nodes — one per land use feature across 6 islands, 15 crop categories.
+5,039 Zone nodes — one per land use feature across 6 islands, 15 crop categories.
 
-**H3 strategy**: Centroid-based (median feature is 6.7 acres vs ~1,275 acres/cell at res-7).
-Each feature maps to exactly 1 res-7 cell via polygon centroid. No new ZoneCells created.
+**H3 strategy**: Centroid-based (median feature is 6.7 acres vs ~183 acres/cell at res-8).
+Each feature maps to exactly 1 res-8 cell via polygon centroid. No new ZoneCells created.
 
-- 4,846 zones linked (96.5%)
-- 178 zones unlinked — centroid falls in coastal/edge cells outside moku backbone
-- 670 unique res-7 cells used
+- 1,826 unique backbone cells linked
+- Unlinked zones have centroids in coastal/edge cells outside moku backbone
 
 **Files** (in `baseline/`):
 | File | Purpose |
 |------|---------|
-| `create-baseline-zones.cypher` | Stage A — create 5,024 Zone nodes |
-| `load-baseline-zone-cells.cypher` | Stage B — link to existing res-7 ZoneCells |
-| `generate-baseline-h3.mjs` | Centroid → H3 res-7 CSV generation |
+| `create-baseline-zones.cypher` | Stage A — create Zone nodes |
+| `load-baseline-zone-cells.cypher` | Stage B — link to existing res-8 ZoneCells |
+| `generate-baseline-h3.mjs` | Centroid → H3 res-8 CSV generation |
 
 **Execution order**: Stage A, then Stage B.
 
@@ -95,14 +91,16 @@ Each feature maps to exactly 1 res-7 cell via polygon centroid. No new ZoneCells
 
 ```
 Feature median acreage vs H3 cell area:
-  > 1,275 acres (res 7)  →  polyfill at res 7
   > 183 acres  (res 8)   →  polyfill at res 8
   > 26 acres   (res 9)   →  polyfill at res 9
-  < 26 acres             →  centroid at res 7
+  > 3.7 acres  (res 10)  →  polyfill at res 10
+  < 26 acres             →  centroid at res 8
+  Point features         →  IntraZone at res 14 + parent res-8
 ```
 
 Most planning datasets with many small parcels will use the centroid approach.
 Large designated zones (IAL, conservation districts, etc.) benefit from polyfill.
+Point features (schools, campuses, stations) use the IntraZone pattern at res-14.
 
 ---
 
@@ -110,7 +108,14 @@ Large designated zones (IAL, conservation districts, etc.) benefit from polyfill
 
 | Folder | Dataset | Status |
 |--------|---------|--------|
-| `ag/` | IAL dockets | Seeded |
-| `ag/baseline/` | Ag Land Use 2015 | Seeded |
-| `stewards/` | Government Land Ownership | Staged — not yet implemented |
-| `planning/` | Honolulu Zoning | Staged — not yet implemented |
+| `ag/` | IAL dockets | Seeded (res-8/9 polyfill) |
+| `ag/baseline/` | Ag Land Use 2015 | Seeded (centroid res-8) |
+| `stewards/` | Government Land Ownership | Seeded (centroid res-8) |
+| `planning/` | Honolulu Zoning | Seeded (centroid res-8) |
+| `reserves/` | Reserves / Conservation Areas | Seeded (centroid res-8) |
+| `opportunity/` | Federal Opportunity Zones | Seeded (centroid res-8) |
+| `highways/` | HPMS Highway Segments | Seeded (midpoint res-8) |
+| `schools/` | Public Schools | Seeded (IntraZone res-14) |
+| `post-secondary/` | Post-Secondary Institutions | Seeded (IntraZone res-14) |
+| `stations/` | HART Rail Stations | Seeded (IntraZone res-14 + TransitCorridor) |
+| `rail/` | HART Rail Guideway | Seeded (line-sample res-10) |

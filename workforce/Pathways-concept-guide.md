@@ -147,7 +147,9 @@ At a high level:
 
 (CareerPathway)-[:ALIGNS_WITH_ZONE_TYPE]->(ZoneType {id:"ag"})
 
-You’ll later connect TrainingProgram providers to Institution nodes, which will be mapped to ZoneCells → MokuDistrict → Moku, so the whole thing becomes spatially aware and moku-governed. [topics | Txt]
+Training program providers are now spatially connected via the IntraZone pattern:
+post-secondary institutions (85 campuses) are mapped at res-14 with IntraZone → ANCHORS → Zone,
+bridged to the res-8 moku backbone via WITHIN_CELL → ZoneCell → WITHIN → Moku.
 
 Constraints for Type Safety
 
@@ -370,11 +372,15 @@ MATCH (cp:CareerPathway {id:"AFNR"})
 MATCH (zt:ZoneType {id:"ag"})
 MERGE (cp)-[:ALIGNS_WITH_ZONE_TYPE]->(zt);
 
-Later, when you have Zone nodes like IAL zones, supply‑chain zones, economic zones, etc.:
+Zone nodes now exist for IAL (15), ag baseline (5,039), reserves (376), zoning (1,965),
+opportunity zones (25), highways (2,075), government land (25,129), schools (292),
+post-secondary (85), stations (21), and transit corridors (4) — all linked to the
+res-8 moku backbone. Point features (schools, campuses, stations) use IntraZone anchors
+at res-14 for high-fidelity spatial positioning.
 
-Map demand (Occupations) at ZoneCell level.
-Map training availability by locating Institutions in ZoneCells.
-Roll up by MokuDistrict and Moku for district-level planning. [topics | Txt]
+Training availability is mapped via post-secondary IntraZone → ZoneCell → Moku.
+Demand (occupations) can be mapped at ZoneCell level.
+Roll up by MokuDistrict and Moku for district-level planning.
 
 
 ## How This Fits Type System & District Governance
@@ -389,7 +395,16 @@ INCLUDES_PROGRAM, HAS_TRAINING, PREPARES_FOR, LEADS_TO_CREDENTIAL, RECOMMENDS_CR
 
 You do not create labels like :Entry or :CC; instead, you use properties like stage on relationships and track_level on TrainingProgram.
 
-Once Institutions are tied to ZoneCells and you map demand data (occupations by ZoneCell):
+With post-secondary institutions now connected to the spatial backbone via IntraZone,
+and demand data mapped at ZoneCell level, you can ask for each MokuDistrict:
+“What AFNR programs and trainings exist that prepare for occupations in our
+IAL + economic + supply_chain zones?” — and traverse the answer entirely in the graph:
 
-You can ask, for each MokuDistrict, “What AFNR programs and trainings exist that prepare for occupations in our IAL + economic + supply_chain zones?”
+```
+CareerPathway (AFNR) → ZoneType (ag) → Zone (IAL/baseline) → ZoneCell → Moku
+  ↕ same Moku
+IntraZone → WITHIN_CELL → ZoneCell → Moku
+IntraZone → ANCHORS → Zone (postsecondary) ← USES_TYPE ← ZoneType (postsecondary)
+```
+
 That’s exactly the district-level, project-based data governance & provenance you’re aiming for.
