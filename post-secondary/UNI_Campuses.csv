@@ -1,0 +1,86 @@
+zone_id,inst_id,inst_name,inst_opeid,inst_ipeds,inst_url,inst_ph,camp_id,camp_name,address,city,state,zip
+UNI_111911,111911,Chaminade University of Honolulu,160500,141486,www.chaminade.edu,808-735-4711,0,,3140 Waialae Ave,Honolulu,HI,96816-1578
+UNI_111911_2,111911,Chaminade University of Honolulu,160500,141486,www.chaminade.edu,808-735-4711,2,Chaminade University of Honolulu - Pearl Harbor,1260 Pierce Street,Pearl Harbor,HI,96860-3139
+UNI_111911_3,111911,Chaminade University of Honolulu,160500,141486,www.chaminade.edu,808-735-4711,3,Chaminade University of Honolulu - Schofield Barracks,"1565 Kolekole Ave, Bldg 560",Schofield Barracks,HI,96857
+UNI_111911_4,111911,Chaminade University of Honolulu,160500,141486,www.chaminade.edu,808-735-4711,4,Chaminade University of Honolulu - Tripler,1 Jarrett White Road,Tripler,HI,96859
+UNI_111911_5,111911,Chaminade University of Honolulu,160500,141486,www.chaminade.edu,808-735-4711,5,Chaminade University of Honolulu - Camp Smith,Bldg 27,Camp Smith,HI,96861
+UNI_111920,111920,University of Hawaii at Hilo,161100,141565,www.hilo.hawaii.edu,808-974-7311,0,,200 West Kawili Street,Hilo,HI,96720-4091
+UNI_111939,111939,University of Hawaii at Manoa,161000,141574,www.manoa.hawaii.edu,808-956-8111,0,,"2500 Campus Road, Hawaii Hall",Honolulu,HI,96822-2301
+UNI_111939_2,111939,University of Hawaii at Manoa,161000,141574,www.manoa.hawaii.edu,808-956-8111,2,University of Hawaii at Manoa - University Center-Maui,310 Kaahumanu Avenue,Kahului,HI,96732
+UNI_111948,111948,Hawaii Business College,2055100,141583,WWW.HBC.EDU,808-524-4014,0,,"33 S King St, 4th Floor",Honolulu,HI,96813
+UNI_111957,111957,Hawaii Institute of Hair Design,2139500,141608,www.hihd.net,808-533-6596,0,,"1128 Nuuanu Avenue, Suite 102",Honolulu,HI,96817
+UNI_111966,111966,Hawaii Pacific University,727900,141644,www.hpu.edu,808-544-0202,0,,1164 Bishop Street Suite 800,Honolulu,HI,96813
+UNI_111966_2,111966,Hawaii Pacific University,727900,141644,www.hpu.edu,808-544-0202,2,Windward Hawaii Loa Campus,45-045 Kamehameha Highway,Kaneohe,HI,96744
+UNI_111966_3,111966,Hawaii Pacific University,727900,141644,www.hpu.edu,808-544-0202,3,Hawaii Pacific University - MCBH Camp Smith Education Center,"MCBH Camp Smith Education Center, BLDG 1-B Room 30",MCBH Camp Smith,HI,96861
+UNI_111966_4,111966,Hawaii Pacific University,727900,141644,www.hpu.edu,808-544-0202,4,Hawaii Pacific University - Joint Base Hickam,"15 MSS/DPE 900 Hangar Ave, Hangar 2",Hickam,HI,96853
+UNI_111966_5,111966,Hawaii Pacific University,727900,141644,www.hpu.edu,808-544-0202,5,Hawaii Pacific University - MCBH Kaneohe Education Center,"MCBH Kaneohe Education Center Fifth St, BLDG 221",Kaneohe,HI,96863
+UNI_111966_6,111966,Hawaii Pacific University,727900,141644,www.hpu.edu,808-544-0202,6,Hawaii Pacific University - Joint Base Pearl Harbor,"Pearl Harbor Education Center, 1260  Pierce St, BLDG 679 2nd Fl, Rm 224",Pearl Harbor,HI,96860
+UNI_111966_7,111966,Hawaii Pacific University,727900,141644,www.hpu.edu,808-544-0202,7,Hawaii Pacific University - Schofield Barracks,"Yano Hall, 1565 Kolekole Ave, BLDG 560",Schofield Barracks,HI,96857
+UNI_111966_8,111966,Hawaii Pacific University,727900,141644,www.hpu.edu,808-544-0202,8,Hawaii Pacific University - Tripler Army Medical Center,"Tripler Army Education Center, BLDG102 Room 111",Tripler AMC,HI,96859
+UNI_111966_9,111966,Hawaii Pacific University,727900,141644,www.hpu.edu,808-544-0202,9,Hawaii Pacific University - Hawaii Loa Campus,45-045 Kamehameha Highway,Kane`ohe,HI,96744-5297
+UNI_111975,111975,Hollywood Beauty College,777500,141671,www.hollywoodbeautycollege.com,808-486-7255-0,0,,99-084 Kauhale St Bldg A,Aiea,HI,96701
+UNI_111984,111984,Honolulu Community College,161200,141680,www.honolulu.hawaii.edu,808-845-9211,0,,874 Dillingham Blvd,Honolulu,HI,96817-4598
+UNI_111993,111993,Transpacific Hawaii College,,141787,www.transpacific.org,,0,,5257 Kalanianaole Hwy.,Honolulu,HI,96821
+UNI_112002,112002,Kapi'olani Community College,161300,141796,www.kcc.hawaii.edu,808-734-9555,0,,4303 Diamond Head Rd,Honolulu,HI,96816-4496
+UNI_112011,112011,Kauai Community College,161400,141802,www.kauai.hawaii.edu,808-245-8311,0,,3-1901 Kaumualii Hwy,Lihue,HI,96766-9591
+UNI_112020,112020,Leeward Community College,454900,141811,www.lcc.hawaii.edu,808-455-0011,0,,96-045 Ala Ike,Pearl City,HI,96782-3393
+UNI_112039,112039,University of Hawaii Maui College,161500,141839,www.mauicc.hawaii.edu,808-984-3500,0,,310 Kaahumanu Ave,Kahului,HI,96732-1644
+UNI_112039_2,112039,University of Hawaii Maui College,161500,141839,www.mauicc.hawaii.edu,808-984-3500,2,UH Maui College - Molokai Education Center,"375 Kamehameha V Highway, PO Box 440",Kaunakakai,HI,96748
+UNI_112039_3,112039,University of Hawaii Maui College,161500,141839,www.mauicc.hawaii.edu,808-984-3500,3,UH Maui College - Lanai Education Center,"329 7th Street, PO Box 630648",Lanai City,HI,96763
+UNI_112039_4,112039,University of Hawaii Maui College,161500,141839,www.mauicc.hawaii.edu,808-984-3500,4,UH Maui College - Hana Education Center,"5101 Uakea Rd, Rm 10, P.O. Box 70",Hana,HI,96713
+UNI_112039_5,112039,University of Hawaii Maui College,161500,141839,www.mauicc.hawaii.edu,808-984-3500,5,UH Maui College - Lahaina Education Center,60 Kenui Street,Lahaina,HI,96761
+UNI_112048,112048,Med-Assist School of Hawaii,2100300,141848,www.mash.edu,808-524-3363,0,,"345 Queen Street, Suite 400",Honolulu,HI,96813
+UNI_112057,112057,New York Technical Institute of Hawaii,3020800,141857,,808-841-5827,0,,1375 Dillingham Boulevard,Honolulu,HI,96817-4415
+UNI_112066,112066,World Medicine Institute,3072500,141936,www.worldmedicineinstitute.com,808-373-2849,0,,1073 Hind luka Drive,Honolulu,HI,96821
+UNI_112075,112075,Gros Bonnet Culinary Academy,3017800,141945,WWW.TIPHAWAII.COM,808-591-2708,0,,1314 S King St Ste 1164,Honolulu,HI,96814
+UNI_112093,112093,University of Hawaii - West Oahu,2107800,141981,www.westoahu.hawaii.edu,808-454-4700,0,,91-1001 Farrington Highway,Kapolei,HI,96707
+UNI_112109,112109,Windward Community College,1122000,141990,www.windward.hawaii.edu,808-235-7400,0,,45-720 Keaahala Rd,Kaneohe,HI,96744-3598
+UNI_146755,146755,Brigham Young University - Hawaii,160600,230047,www.byuh.edu,808-293-3211,0,,55-220 Kulanui Street,Laie,HI,96762-1294
+UNI_151795,151795,Hawai'i Theological Seminary,2321300,244464,icgshawaii.org,808-595-4247,0,,1881 California Ave,Wahiawa,HI,96786
+UNI_155706,155706,Remington College - Honolulu Campus,3026521,372958,WWW.REMINGTONCOLLEGE.EDU,808-942-1000,0,,"1111 Bishop Street, Suite 400",Honolulu,HI,96813-2811
+UNI_157818,157818,Hawaii Community College,525800,383190,www.hawcc.hawaii.edu,808-974-7611,0,,200 W Kawili St,Hilo,HI,96720-4091
+UNI_172635,172635,Hawaii Technology Institute,3649300,444626,www.hti.edu,808-527-2700,0,,629 Pohukaina St,Honolulu,HI,96813
+UNI_172705,172705,Institute of Clinical Acupuncture & Oriental Medicine,3735300,444699,www.orientalmedicine.edu,808-521-2288,0,,"100 N. Beretania Street, Suite 203B",Honolulu,HI,96817
+UNI_173799,173799,Hawaii College of Oriental Medicine,3999400,449579,www.tcmch.edu,808-885-9226,0,,"180 Kinoole Street, Suite 301",Hilo,HI,96720
+UNI_174871,174871,Hawaii Tokai International College,,,www.tokai.edu,,0,,2241 Kapiolani Blvd.,Honolulu,HI,96826
+UNI_175078,175078,Farrington Community School for Adults,,,,808-832-3595,0,,"1101 Kalihi St., Room U-101",Honolulu,HI,96819
+UNI_175254,175254,Hilo Community School for Adults,,,,808-974-4100,0,,"556 Waianeunue Avenue, B33",Hilo,HI,96720
+UNI_175403,175403,Kauai Community School for Adults,,,,,0,,"3607 A Lala Road, P-12","Lihue, Kauai",HI,96766
+UNI_175458,175458,Kona Community School for Adults,,,,808-327-4692,0,,74-5000 Puohulihuli Street,Kailua-Kona,HI,96740
+UNI_175519,175519,McKinley Community School for Adults,,,,808-594-0540,0,,"634 Pensacola St., Room 216",Honolulu,HI,96814
+UNI_175564,175564,Moanalaua/Aiea Community School for Adults,,,www.macsa.k12.hi.us,808-837-8466,0,,2825-A Ala Ilima Street,Honolulu,HI,96818
+UNI_176831,176831,Waipahu Community School,,,www.waipahucs.k12.hi.us,808-675-0254,0,,94-1211 Farrington Highway,Waipahu,HI,96797
+UNI_179344,179344,Maui Academy of cosmetology LLC,,,,,0,,"55 Kaahumanu avenue, Unit K",Kahului,HI,
+UNI_180416,180416,Golf Academy of America,,,,,0,,45-550 Kionaole Road,Kaneohe,HI,96744
+UNI_183026,183026,Babel University Professional School of Translation,,483498,www.babel.edu,,0,,1833 Kalakaua Avenue #208,Honolulu,HI,96815
+UNI_191348,191348,Kaimuki-Kaiser Community School for Adults,,,www.k12.hi.us,808-733-8460,0,,2705 Kaimuki Avenue,Honolulu,HI,96816
+UNI_191393,191393,Maui Community School for Adults,,,,808-873-3082,0,,179 Ka'ahumanu Avenue,"Kahului, Maui",HI,96732
+UNI_191506,191506,Wahiawa Community School,,,www.wahcs.k12.hi.us/,808-622-1634,0,,1515 California Avenue,Wahiawa,HI,96786
+UNI_191533,191533,Windward School for Adults,,,,808-254-7955,0,,730 Iliaina Street,Kailua,HI,96734
+UNI_196741,196741,Tripler Army Medical Center,,,,,0,,1 Jarrett White Road,Honolulu,HI,96859-5000
+UNI_196778,196778,VA Pacific Islands Health Care System,,,www.hawaii.va.gov,808-433-0600,0,,459 Patterson Road,Honolulu,HI,96819
+UNI_198321,198321,"Academia Language School, Inc.",,,www.academiaschool.com,,0,,"1600 Kapiolani Blvd., Suite 1215",Honolulu,HI,96814
+UNI_199175,199175,"Center for Asia-Pacific Exchange, The",,,www.capealoha.org,,0,,1616 Makiki Street,Honolulu,HI,96822
+UNI_199175_2,199175,"Center for Asia-Pacific Exchange, The",,,www.capealoha.org,,2,"Center for Asia-Pacific Exchange, The - Honolulu","2465 Campus Road, University of Hawaii at Manoa",Honolulu,HI,96822
+UNI_200891,200891,"Institute of Intensive English, Inc.",,,www.goiv.com/iie/,,0,,"2255 Kuhio Avenue, Suite 920",Honolulu,HI,96815
+UNI_200907,200907,Intercultural Communications College,,,www.icchawaii.edu,,0,,"1601 Kapiolani Boulevard, Suite 1000",Honolulu,HI,
+UNI_200907_2,200907,Intercultural Communications College,,,www.icchawaii.edu,,2,Intercultural Communications College Honolulu,"810 Richards Street, Suite 200",Honolulu,HI,96813
+UNI_206297,206297,Pacific Health Ministry,,,,,0,,1245 Young St Ste 204,Honolulu,HI,96814
+UNI_208211,208211,Kona University,,,www.kona.edu,808-791-5050,0,,75-6099 Kuakini Highway,Kailua-Kona,HI,96740
+UNI_209038,209038,Queen's Medical Center - Dentistry Department General Practice Residency 12 Months,,,,,0,,1301 Punchbowl Street,Honolulu,HI,96813
+UNI_210438,210438,"Joint Intelligence Training Academy Pacific, Joint Intelligence Operations Center",,,www.jitap.pacom.mil,808-473-6331,0,,352 Halawa Drive,Pearl Harbor,HI,96860
+UNI_210988,210988,International Mid Pac College,,,http://www.impachawaii.edu,,0,,"1311 Kapiolani Blvd., Suite 200-I",Honolulu,HI,96814
+UNI_212780,212780,Heisei International Institute of Massage,4169600,460622,,,0,,1281 South King Street,Honolulu,HI,96814
+UNI_214272,214272,Mauna Loa Helicopters,4165200,461333,maunaloahelicopters.com,808-334-0234,0,,73-310 UU Street,Kailua Kona,HI,96740
+UNI_215929,215929,Paul Mitchell the School Honolulu,4175100,461591,,,0,,"1123 11th Avenue, Suite #102",Honolulu,HI,96816
+UNI_218821,218821,Hawaii Medical College,4182200,460756,,,0,,1221 Kapiolani Blvd. PH #35,Honolulu,HI,96814
+UNI_226727,226727,US Army Dental Activity/Tripler Advanced Education in General Dentistry 24 Months,,,,,0,,Tripler Army Medical Center,Honolulu,HI,96859-5000
+UNI_227678,227678,I Ola Lahui,,,,,0,,677 Ala Moana Blvd. Suite 904,Honolulu,HI,96813
+UNI_231192,231192,Global Village Hawaii,,,,,0,,"1440 Kapiolani Blvd., Suite 1100",Honolulu,HI,96814
+UNI_231819,231819,Institute of Intensive English,,,,808-924-2117,0,,2155 Kalakaua Ave. Suite 700,Honolulu,HI,96815
+UNI_232070,232070,Kaho'iwai,,,,,0,,PO Box 6511,Kamuela,HI,96743
+UNI_232812,232812,Waianae Coast Comprehensive Health Center,,,www.wcchc.com/,808-697-3300,0,,86-260 Farrington Highway,Waianae,HI,96792
+UNI_234827,234827,Central Pacific College,,,,808-791-7800,0,,"1221 Kapiolani Boulevard, Suite 720 and 740",Honolulu,HI,96814
+UNI_235398,235398,Kapiolani Community College/University of HI Community Colleges,,,,,0,,4303 Diamond Head Road,Honolulu,HI,96816
+UNI_239196,239196,Pacific Rim Christian University,,,www.pacrim.edu,808-518-4791,0,,2223 Ho'one'e Place,Honolulu,HI,96819
+UNI_240471,240471,Hawaii Psychology Internship Consortium,,,,,0,,42-470 Kalanianaole Hwy,Kailua,HI,96734
