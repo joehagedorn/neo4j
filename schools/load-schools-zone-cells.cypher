@@ -3,7 +3,7 @@
 //
 // Each school was mapped to a single res-14 H3 cell (~6.3 m²) via its Point
 // coordinate. This creates an IntraZone node, links it to the Zone via
-// ANCHORS, and links it to the parent res-7 ZoneCell via WITHIN_CELL
+// ANCHORS, and links it to the parent res-8 ZoneCell via WITHIN_CELL
 // (when that backbone cell exists) for Moku traversal.
 //
 // Prerequisites:
@@ -17,7 +17,7 @@ WITH row,
      trim(row.zone_id)         AS zone_id,
      row.h3_cell                AS h3,
      toInteger(row.resolution)  AS resolution,
-     row.parent_h3_7            AS parent_h3,
+     row.parent_h3_8            AS parent_h3,
      trim(row.version)          AS version,
      row.data_source            AS data_source,
      row.provenance             AS provenance
@@ -37,7 +37,7 @@ ON CREATE SET iz.resolution = resolution,
 SET iz.updated_at = datetime()
 MERGE (iz)-[:ANCHORS]->(z)
 
-// 3) Link IntraZone to parent res-7 ZoneCell (when it exists in backbone)
+// 3) Link IntraZone to parent res-8 ZoneCell (when it exists in backbone)
 WITH iz, parent_h3
 OPTIONAL MATCH (zc:ZoneCell {h3_cell: parent_h3})
 FOREACH (_ IN CASE WHEN zc IS NOT NULL THEN [1] ELSE [] END |

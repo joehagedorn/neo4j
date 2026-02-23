@@ -104,7 +104,7 @@ for (const [key, { feature, props }] of seen) {
 
   const [lng, lat] = feature.geometry.coordinates;
   const h3Cell = latLngToCell(lat, lng, RESOLUTION);
-  const parentH3 = cellToParent(h3Cell, 7);
+  const parentH3 = cellToParent(h3Cell, 8);
   const provenance = `Point res${RESOLUTION} from post-secondary campus ${zoneId} (${name})`;
 
   // Campus CSV row
@@ -136,7 +136,7 @@ const campusCsv = [campusHeader, ...campusRows].join('\n') + '\n';
 writeFileSync(CAMPUS_FILE, campusCsv, 'utf-8');
 
 // Write H3 CSV
-const h3Header = 'zone_id,h3_cell,resolution,parent_h3_7,version,data_source,provenance';
+const h3Header = 'zone_id,h3_cell,resolution,parent_h3_8,version,data_source,provenance';
 const h3Csv = [h3Header, ...h3Rows].join('\n') + '\n';
 writeFileSync(H3_FILE, h3Csv, 'utf-8');
 

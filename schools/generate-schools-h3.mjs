@@ -43,7 +43,7 @@ for (const feature of geojson.features) {
 
   const [lng, lat] = feature.geometry.coordinates;
   const h3Cell = latLngToCell(lat, lng, RESOLUTION);
-  const parentH3 = cellToParent(h3Cell, 7);
+  const parentH3 = cellToParent(h3Cell, 8);
   const provenance = `Point res${RESOLUTION} from school objectid ${oid} (${schoolName})`;
 
   rows.push(`${zoneId},${h3Cell},${RESOLUTION},${parentH3},${island},${VERSION},Schools intrazone 2026,${provenance}`);
@@ -51,7 +51,7 @@ for (const feature of geojson.features) {
 }
 
 // Write CSV
-const header = 'zone_id,h3_cell,resolution,parent_h3_7,island,version,data_source,provenance';
+const header = 'zone_id,h3_cell,resolution,parent_h3_8,island,version,data_source,provenance';
 const csv = [header, ...rows].join('\n') + '\n';
 writeFileSync(OUTPUT_FILE, csv, 'utf-8');
 
