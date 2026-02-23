@@ -1,0 +1,13 @@
+1,Advanced Manufacturing
+2,Agriculture, Food, and Natural Resources
+3,Architectural Design and Engineering Technology
+4,Building and Construction
+5,Business Management, Finance, and Marketing
+6,Cultural Arts, Media, and Entertainment
+7,Education
+8,Energy
+9,Health Services
+10,Hospitality, Tourism, and Recreation
+11,Information Technology and Digital Transformation
+12,Law and Public Safety
+13,Transportation Services
