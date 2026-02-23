@@ -1,0 +1,22 @@
+zone_id,station_number,station_name,feis_name,global_id
+STA_1,1,Kualakaʻi Station,East Kapolei Station,924f7617-51b1-473e-acea-33044c546fd9
+STA_2,2,Keoneʻae Station,UH West O’ahu Station,afe91172-cdc9-492b-84c7-27bb22a1ded3
+STA_3,3,Honouliuli Station,Hoʻopili Station,7061192e-7e18-44b0-8a31-f4471398c5a8
+STA_4,4,Hōʻaeʻae Station,West Loch Station,09a50b09-aca7-4904-ac30-a478bc8b59b6
+STA_5,5,Pouhala Station,Waipahu Transit Center Station,5b1dccbd-4d10-47fd-af81-9545cf1f5827
+STA_6,6,Hālaulani Station,Leeward Community College Station,f16b6dfe-ce8f-4946-b2f8-48aa66d9219f
+STA_7,7,Waiawa Station,Pearl Highlands Station,c74ec6f0-84d3-44c1-b1e3-3a255d78e2fb
+STA_8,8,Kalauao Station,Kalauao Station,182adceb-f950-40cb-b2b0-8254fb6e870d
+STA_9,9,Hālawa Station,Hālawa Station,21a40804-7e4e-4890-a18d-cbf760f297c0
+STA_10,10,Makalapa Station,Pearl Harbor Naval Base Station,8d2c4284-df21-4b1c-b53c-34fb3b2b6152
+STA_11,11,Lelepaua Station,Honolulu International Airport Station,55407362-e6ee-4bfa-97d0-3a9e295420e7
+STA_12,12,Āhua Station,Lagoon Drive Station,5bc394eb-db75-4ea6-b040-600d8d03c25f
+STA_13,13,Kahauiki Station,Middle Street Transit Center Station,b92a6c98-27ff-462e-a093-a9070b22f471
+STA_14,14,Mokauea Station,Kalihi Station,8a52bf8f-808f-4f4e-b9d5-5e6f34033fd2
+STA_15,15,Niuhelewai Station,Kapalama Station,e6b99ff2-c382-457b-9fa1-2de75dce608e
+STA_16,16,Kūwili Station,Iwilei Station,2ba6c57f-1aad-4e9e-98ff-d88f1e056cd1
+STA_17,17,Hōlau Station,Chinatown Station,2b040391-f0a6-4017-9e64-b5f5a869abd1
+STA_18,18,Kuloloia Station,Downtown Station,06ea3fee-d2bf-4ba7-b88f-ad5c09dfc949
+STA_19,19,Kaʻākaukukui Station,Civic Center Station,6e33a4b1-3fdf-48f1-a0ee-73462735dfef
+STA_20,20,Kūkuluaeʻo Station,Kaka'ako Station,faf3d40e-4885-488a-8090-af2d3841a847
+STA_21,21,Kālia Station,Ala Moana Center Station,148bb5db-db8f-436f-a520-e4f5c756a057
