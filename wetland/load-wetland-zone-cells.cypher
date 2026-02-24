@@ -1,0 +1,34 @@
+// ============================================================================
+// Stage B — Link Wetland Zones to res-8 ZoneCells via IN_ZONE
+//
+// Each NWI wetland feature was mapped to a single res-8 H3 cell via centroid.
+// This links the Zone node to the existing moku backbone ZoneCell.
+// No new ZoneCells are created — only IN_ZONE relationships.
+//
+// 4,974 zones → 1,206 unique backbone cells.
+//
+// Prerequisites:
+//   - Moku ZoneCells loaded (Stage 0)
+//   - Wetland Zone nodes created (Stage A)
+// ============================================================================
+
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/joehagedorn/neo4j/main/wetland/WET_Zones_H3.csv' AS row
+
+WITH row,
+     trim(row.zone_id)   AS zone_id,
+     row.h3_cell          AS h3,
+     trim(row.version)    AS version,
+     row.data_source      AS data_source,
+     row.provenance       AS provenance
+
+// 1) Update Zone provenance/version if present
+MATCH (z:Zone {id: zone_id})
+SET z.version     = coalesce(version, z.version),
+    z.data_source = coalesce(data_source, z.data_source),
+    z.provenance  = coalesce(provenance, z.provenance),
+    z.updated_at  = datetime()
+
+// 2) Attach to existing res-8 ZoneCell (backbone cells only)
+WITH z, h3
+MATCH (zc:ZoneCell {h3_cell: h3})
+MERGE (zc)-[:IN_ZONE]->(z);

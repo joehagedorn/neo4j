@@ -71,8 +71,8 @@ Each station also has an IntraZone anchor for spatial positioning.
 | **Moku** | 33 | Hawaiian governance regions |
 | **MokuDistrict** | 33 | Planning polygons (1:1 with Moku) |
 | **ZoneCell** | 19,720 | H3 cells — 19,438 res-8 + 48 res-9 + 234 res-10 |
-| **Zone** | 35,011 | Spatial overlay zones across 10 types |
-| **ZoneType** | 10 | Vocabulary hub nodes |
+| **Zone** | 39,985 | Spatial overlay zones across 11 types |
+| **ZoneType** | 11 | Vocabulary hub nodes |
 | **IntraZone** | 389 | Res-14 point-feature anchors (schools, post-secondary, stations) |
 | **TransitCorridor** | 1 | HART Rail line (Oahu) |
 | **CareerPathway** | 13 | Career clusters from Hawaii Career Pathways |
@@ -86,8 +86,8 @@ Each station also has an IntraZone anchor for spatial positioning.
 
 | Relationship | Count | Pattern |
 |-------------|-------|---------|
-| `USES_TYPE` | 35,011 | `(:Zone)-[:USES_TYPE]->(:ZoneType)` |
-| `IN_ZONE` | 32,055 | `(:ZoneCell)-[:IN_ZONE]->(:Zone)` |
+| `USES_TYPE` | 39,985 | `(:Zone)-[:USES_TYPE]->(:ZoneType)` |
+| `IN_ZONE` | 37,029 | `(:ZoneCell)-[:IN_ZONE]->(:Zone)` |
 | `WITHIN` | 19,440 | `(:ZoneCell)-[:WITHIN]->(:Moku)` |
 | `ANCHORS` | 398 | `(:IntraZone)-[:ANCHORS]->(:Zone)` |
 | `WITHIN_CELL` | 378 | `(:IntraZone)-[:WITHIN_CELL]->(:ZoneCell)` |
@@ -113,6 +113,7 @@ Each station also has an IntraZone anchor for spatial positioning.
 | `station` | Transit Station | 21 |
 | `steward` | Government Land Ownership | 25,129 |
 | `transit` | Transit Corridor | 4 |
+| `wetland` | Wetland / Hydrography | 4,974 |
 | `zoning` | Zoning District | 1,965 |
 
 ### Labels
@@ -180,6 +181,14 @@ Each ZoneCell carries `moku_id`, `moku_name`, `island` and links to its Moku nod
 
 - 77 IntraZone nodes (8 campuses share coordinates)
 - 59 linked to res-8 backbone via WITHIN_CELL
+
+### NWI Wetlands (`wetland/`)
+
+4,974 zones (type `wetland`, prefix `WET_`). Centroid to res-8. Oahu only. 1,206 unique backbone cells linked.
+
+- Source: USFWS National Wetlands Inventory (NWI) Hydrography dataset
+- 7 wetland types: Estuarine/Marine Wetland (1,340), Riverine (1,057), Freshwater Emergent (875), Freshwater Pond (707), Freshwater Forested/Shrub (687), Estuarine/Marine Deepwater (298), Lake (10)
+- Properties: `nwi_attribute` (NWI code), `wetland_type`, `acres`, `fid_hi_wetlands`
 
 ### HART Rail Stations (`stations/`)
 
