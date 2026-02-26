@@ -1,0 +1,4 @@
+record_id,site_id,sample_date,observation_time,location_name,moku,latitude,longitude,pond_depth_ft,weather_conditions,site_conditions,quality_level,ph,orp_mv,dissolved_oxygen_mg_l,conductivity_us_cm,temperature_c,turbidity_ntu,salinity_ppt,matrix,collection_method,preservation
+1,kailua-pond-1,2025-06-15,2025-06-15T09:30:00,Kailua Fishpond Site A,Koolaupoko,21.3942,-157.7405,3.2,sunny,clear,verified,7.4,250,8.5,750,25.5,5.2,35.0,water,field grab sampling,none
+2,heeia-stream-2,2025-06-15,2025-06-15T10:15:00,Heeia Stream Outlet,Koolaupoko,21.4311,-157.8062,1.8,partly_cloudy,slightly_turbid,verified,6.9,180,7.2,620,24.8,12.3,18.5,water,field grab sampling,none
+3,waiahole-intake,2025-06-16,2025-06-16T08:00:00,Waiahole Intake Pool,Koolaupoko,21.4822,-157.8544,4.5,cloudy,algae_present,preliminary,,,,,,,,water,field grab sampling,none

@@ -1,0 +1,4 @@
+zone_id,h3_cell,resolution,parent_h3_8,island,name,matrix,moku,lat,lng,version,data_source,provenance
+ENV_kailua-pond-1,8e464958cca8977,14,88464958cdfffff,oahu,Kailua Fishpond Site A,water,koolaupoko,21.3942,-157.7405,2026.02,Environment monitoring sites 2026,Point res14 from monitoring site kailua-pond-1 (Kailua Fishpond Site A)
+ENV_heeia-stream-2,8e46495b105812f,14,8846495b11fffff,oahu,Heeia Stream Outlet,water,koolaupoko,21.4311,-157.8062,2026.02,Environment monitoring sites 2026,Point res14 from monitoring site heeia-stream-2 (Heeia Stream Outlet)
+ENV_waiahole-intake,8e464825a4314f7,14,88464825a5fffff,oahu,Waiahole Intake Pool,water,koolaupoko,21.4822,-157.8544,2026.02,Environment monitoring sites 2026,Point res14 from monitoring site waiahole-intake (Waiahole Intake Pool)

@@ -1,0 +1,51 @@
+{
+  "contributor": "manaolana-community",
+  "datasets": [
+    {
+      "file": "water-quality-dataset.csv",
+      "title": "Manaolana Water Quality Observations – Koolaupoko",
+      "description": "Field grab sampling of water quality parameters at fishponds, stream outlets, and intake pools in Koolaupoko moku, windward Oahu.",
+      "license": "CC-BY-4.0",
+      "moku_ids": ["oahu-koolaupoko"],
+      "topics": ["water"],
+      "sdg_codes": ["sdg6", "sdg14"],
+      "quality": "verified",
+      "access_level": "public",
+      "coverage": "Koolaupoko moku, windward Oahu",
+      "temporal_coverage": {
+        "start": "2025-06-15",
+        "end": "2025-06-16"
+      },
+      "sample_context": {
+        "matrix": ["water"],
+        "collection_method": "field grab sampling",
+        "preservation": "none"
+      },
+      "schema": {
+        "record_id": "integer",
+        "site_id": "string",
+        "sample_date": "date",
+        "observation_time": "datetime",
+        "location_name": "string",
+        "moku": "string",
+        "latitude": "number",
+        "longitude": "number",
+        "pond_depth_ft": "number",
+        "weather_conditions": "string",
+        "site_conditions": "string",
+        "quality_level": "string",
+        "ph": "number",
+        "orp_mv": "number",
+        "dissolved_oxygen_mg_l": "number",
+        "conductivity_us_cm": "number",
+        "temperature_c": "number",
+        "turbidity_ntu": "number",
+        "salinity_ppt": "number",
+        "matrix": "string",
+        "collection_method": "string",
+        "preservation": "string"
+      },
+      "required_fields": ["site_id", "sample_date", "latitude", "longitude", "matrix"]
+    }
+  ]
+}
