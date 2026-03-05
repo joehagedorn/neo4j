@@ -1,0 +1,50 @@
+{
+  "$schema": "../dataset-schema.json",
+  "id": "trails",
+  "title": "Parks and Recreation Trails",
+  "description": "45 hiking and recreation trails across Hawaii with distance, elevation, access type, climate, and amenity data.",
+  "authority": {
+    "agency": "Hawaii Department of Land and Natural Resources - Na Ala Hele",
+    "portal": "Hawaii Statewide GIS Program",
+    "portal_url": "https://geoportal.hawaii.gov/datasets/parks-recreation",
+    "license": "public-domain",
+    "update_frequency": "on-change"
+  },
+  "downloaded_at": "2026-02-23",
+  "source_vintage": "2024",
+  "last_checked": "2026-02-23",
+  "stale": false,
+  "coverage": {
+    "islands": ["hawaii", "kauai", "maui", "oahu"],
+    "scope": "statewide"
+  },
+  "zone_type": "trail",
+  "h3_strategy": "centroid",
+  "h3_resolution": 8,
+  "feature_count": 45,
+  "files": {
+    "source": {
+      "file": "Parks_Recreation_-4303987071572082682.geojson",
+      "format": "geojson",
+      "size_mb": 0.23,
+      "tracked": true
+    },
+    "cleaned_csv": {
+      "file": "Parks_Recreation_3282175220581128208.csv",
+      "format": "csv",
+      "rows": 45,
+      "tracked": true
+    },
+    "h3_csv": {
+      "file": "TRL_Zones_H3.csv",
+      "format": "csv",
+      "rows": 45,
+      "tracked": true
+    }
+  },
+  "scripts": {
+    "generate": "generate-trails-h3.mjs",
+    "stage_a": "create-trails-zones.cypher",
+    "stage_b": "load-trails-zone-cells.cypher"
+  }
+}

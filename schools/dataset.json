@@ -1,0 +1,51 @@
+{
+  "$schema": "../dataset-schema.json",
+  "id": "schools",
+  "title": "Hawaii Public Schools",
+  "description": "~288 public schools across all islands with grade ranges, complexes, and complex areas. IntraZone res-14 point anchors.",
+  "authority": {
+    "agency": "Hawaii Department of Education",
+    "portal": "Hawaii Statewide GIS Program",
+    "portal_url": "https://geoportal.hawaii.gov/datasets/public-schools",
+    "license": "public-domain",
+    "update_frequency": "annual"
+  },
+  "downloaded_at": "2026-02-23",
+  "source_vintage": "2024",
+  "last_checked": "2026-02-23",
+  "stale": false,
+  "coverage": {
+    "islands": ["hawaii", "kauai", "maui", "oahu", "molokai", "lanai"],
+    "scope": "statewide"
+  },
+  "zone_type": "school",
+  "h3_strategy": "point-anchor",
+  "h3_resolution": 14,
+  "feature_count": 288,
+  "files": {
+    "source": {
+      "file": "Public_Schools.geojson",
+      "format": "geojson",
+      "size_mb": 0.17,
+      "tracked": false,
+      "download_url": "https://geoportal.hawaii.gov/datasets/public-schools/explore"
+    },
+    "cleaned_csv": {
+      "file": "Public_Schools.csv",
+      "format": "csv",
+      "rows": 288,
+      "tracked": true
+    },
+    "h3_csv": {
+      "file": "SCH_IntraZones_H3.csv",
+      "format": "csv",
+      "rows": 288,
+      "tracked": true
+    }
+  },
+  "scripts": {
+    "generate": "generate-schools-h3.mjs",
+    "stage_a": "create-schools-zones.cypher",
+    "stage_b": "load-schools-zone-cells.cypher"
+  }
+}

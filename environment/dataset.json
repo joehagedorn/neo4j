@@ -1,0 +1,46 @@
+{
+  "$schema": "../dataset-schema.json",
+  "id": "environment",
+  "title": "Environmental Monitoring Sites",
+  "description": "Water quality, soil, and air monitoring sites from community research contributions. Res-14 IntraZone anchors bridge to SDG spatial graph.",
+  "authority": {
+    "agency": "Mokunet Research Commons",
+    "portal": "Aina-Design-Corp/mokulearner-research",
+    "portal_url": "https://github.com/Aina-Design-Corp/mokulearner-research",
+    "license": "CC-BY-4.0",
+    "update_frequency": "on-change"
+  },
+  "downloaded_at": "2026-02-26",
+  "source_vintage": "2025",
+  "last_checked": "2026-02-26",
+  "stale": false,
+  "coverage": {
+    "islands": ["oahu"],
+    "moku_ids": ["oahu-koolaupoko"],
+    "scope": "moku-scoped"
+  },
+  "zone_type": "environment",
+  "h3_strategy": "point-anchor",
+  "h3_resolution": 14,
+  "feature_count": 3,
+  "files": {
+    "source": {
+      "file": "commons-samples/water-quality-dataset.csv",
+      "format": "csv",
+      "size_mb": 0.001,
+      "tracked": true
+    },
+    "h3_csv": {
+      "file": "ENV_IntraZones_H3.csv",
+      "format": "csv",
+      "rows": 3,
+      "tracked": true
+    }
+  },
+  "scripts": {
+    "generate": "generate-environment-h3.mjs",
+    "stage_a": "load-environment-zones.cypher",
+    "stage_b": "load-environment-zone-cells.cypher",
+    "loader": "load-environment-zones.mjs"
+  }
+}

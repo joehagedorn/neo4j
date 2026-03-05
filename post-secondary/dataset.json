@@ -1,0 +1,51 @@
+{
+  "$schema": "../dataset-schema.json",
+  "id": "post-secondary",
+  "title": "Post-Secondary Institutions",
+  "description": "Higher education campuses across Hawaii (UH system, community colleges, private). Deduplicated to unique campuses with IntraZone res-14 anchors.",
+  "authority": {
+    "agency": "National Center for Education Statistics (NCES)",
+    "portal": "Hawaii Statewide GIS Program",
+    "portal_url": "https://geoportal.hawaii.gov/datasets/postsecondary-institutions",
+    "license": "public-domain",
+    "update_frequency": "annual"
+  },
+  "downloaded_at": "2026-02-23",
+  "source_vintage": "2024",
+  "last_checked": "2026-02-23",
+  "stale": false,
+  "coverage": {
+    "islands": ["hawaii", "kauai", "maui", "oahu", "molokai"],
+    "scope": "statewide"
+  },
+  "zone_type": "postsecondary",
+  "h3_strategy": "point-anchor",
+  "h3_resolution": 14,
+  "feature_count": 85,
+  "files": {
+    "source": {
+      "file": "PostSecondary_Institutions.geojson",
+      "format": "geojson",
+      "size_mb": 0.14,
+      "tracked": false,
+      "download_url": "https://geoportal.hawaii.gov/datasets/postsecondary-institutions/explore"
+    },
+    "cleaned_csv": {
+      "file": "UNI_Campuses.csv",
+      "format": "csv",
+      "rows": 85,
+      "tracked": true
+    },
+    "h3_csv": {
+      "file": "UNI_IntraZones_H3.csv",
+      "format": "csv",
+      "rows": 85,
+      "tracked": true
+    }
+  },
+  "scripts": {
+    "generate": "generate-postsecondary-h3.mjs",
+    "stage_a": "create-postsecondary-zones.cypher",
+    "stage_b": "load-postsecondary-zone-cells.cypher"
+  }
+}

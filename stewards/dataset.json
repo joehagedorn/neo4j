@@ -1,0 +1,51 @@
+{
+  "$schema": "../dataset-schema.json",
+  "id": "stewards",
+  "title": "Government Land Ownership - Detailed",
+  "description": "25,129 government-owned land parcels across all islands with TMK, owner, and ownership type data.",
+  "authority": {
+    "agency": "Hawaii Office of Planning and Sustainable Development",
+    "portal": "Hawaii Statewide GIS Program",
+    "portal_url": "https://geoportal.hawaii.gov/datasets/government-land-ownership-detailed",
+    "license": "public-domain",
+    "update_frequency": "annual"
+  },
+  "downloaded_at": "2026-02-22",
+  "source_vintage": "2024",
+  "last_checked": "2026-02-22",
+  "stale": false,
+  "coverage": {
+    "islands": ["hawaii", "kauai", "maui", "oahu", "molokai", "lanai"],
+    "scope": "statewide"
+  },
+  "zone_type": "steward",
+  "h3_strategy": "centroid",
+  "h3_resolution": 8,
+  "feature_count": 25129,
+  "files": {
+    "source": {
+      "file": "Government_Land_Ownership_-_Detailed.geojson",
+      "format": "geojson",
+      "size_mb": 72,
+      "tracked": false,
+      "download_url": "https://geoportal.hawaii.gov/datasets/government-land-ownership-detailed/explore"
+    },
+    "cleaned_csv": {
+      "file": "Government_Land_Ownership_-_Detailed.csv",
+      "format": "csv",
+      "rows": 25129,
+      "tracked": false
+    },
+    "h3_csv": {
+      "file": "GOV_Zones_H3.csv",
+      "format": "csv",
+      "rows": 25129,
+      "tracked": true
+    }
+  },
+  "scripts": {
+    "generate": "generate-stewards-h3.mjs",
+    "stage_a": "create-stewards-zones.cypher",
+    "stage_b": "load-stewards-zone-cells.cypher"
+  }
+}

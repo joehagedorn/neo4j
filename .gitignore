@@ -1,2 +1,23 @@
 node_modules/
 .env
+
+# Windows NTFS alternate data stream artifacts
+*:Zone.Identifier
+
+# Large GeoJSON source files (re-download via dataset.json download_url)
+ag/baseline/Agricultural_Land_Use_-_2015_Baseline.geojson
+stewards/Government_Land_Ownership_-_Detailed.geojson
+stewards/Government_Land_Ownership_-_Detailed.csv
+planning/Zoning_(City_and_County_of_Honolulu).geojson
+wetland/Hydrography_-2481727552189753624.geojson
+highways/Highway_Performance_Monitoring_System_Roads_for_Hawaii_(HPMS).geojson
+reserves/Reserves.geojson
+reserves/Reserves.csv
+opportunity/Opportunity_Zones.geojson
+schools/Public_Schools.geojson
+post-secondary/PostSecondary_Institutions.geojson
+post-secondary/PostSecondary_Institutions.csv
+rail/HART_Guideway_Alignment_Line_PUBLIC_*.geojson
+stations/HART_Transit_Stations_PUBLIC_*.geojson
+stations/HART_Transit_Stations_PUBLIC_*.csv
+transportation_not_seeded/*.geojson

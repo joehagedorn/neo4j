@@ -1,0 +1,50 @@
+{
+  "$schema": "../dataset-schema.json",
+  "id": "moku",
+  "title": "Moku Governance Regions - H3 Backbone",
+  "description": "33 traditional Hawaiian moku districts with res-8 H3 backbone cells (19,720 ZoneCells). Foundation layer for all spatial overlays.",
+  "authority": {
+    "agency": "Office of Hawaiian Affairs / Hawaii Statewide GIS Program",
+    "portal": "Hawaii Statewide GIS Program",
+    "portal_url": "https://geoportal.hawaii.gov/datasets/moku-districts",
+    "license": "public-domain",
+    "update_frequency": "static"
+  },
+  "downloaded_at": "2026-02-21",
+  "source_vintage": "2024",
+  "last_checked": "2026-02-23",
+  "stale": false,
+  "coverage": {
+    "islands": ["hawaii", "kauai", "maui", "molokai", "lanai", "niihau", "oahu"],
+    "scope": "statewide"
+  },
+  "zone_type": "backbone",
+  "h3_strategy": "polyfill",
+  "h3_resolution": 8,
+  "feature_count": 33,
+  "files": {
+    "source": {
+      "file": "moku_districts_rows.csv",
+      "format": "csv",
+      "size_mb": 4.7,
+      "tracked": true
+    },
+    "cleaned_csv": {
+      "file": "moku.csv",
+      "format": "csv",
+      "rows": 33,
+      "tracked": true
+    },
+    "h3_csv": {
+      "file": "ZoneCell.csv",
+      "format": "csv",
+      "rows": 19720,
+      "tracked": true
+    }
+  },
+  "scripts": {
+    "generate": "generate-zone-cells.mjs",
+    "stage_b": "load-zone-cells.cypher",
+    "loader": "load-zone-cells.mjs"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "../dataset-schema.json",
+  "id": "reserves",
+  "title": "Hawaii Reserves",
+  "description": "376 conservation reserves, natural area reserves, wildlife refuges, and forest reserves across all islands.",
+  "authority": {
+    "agency": "Hawaii Department of Land and Natural Resources",
+    "portal": "Hawaii Statewide GIS Program",
+    "portal_url": "https://geoportal.hawaii.gov/datasets/reserves",
+    "license": "public-domain",
+    "update_frequency": "on-change"
+  },
+  "downloaded_at": "2026-02-22",
+  "source_vintage": "2024",
+  "last_checked": "2026-02-22",
+  "stale": false,
+  "coverage": {
+    "islands": ["hawaii", "kauai", "maui", "oahu", "molokai", "lanai"],
+    "scope": "statewide"
+  },
+  "zone_type": "reserve",
+  "h3_strategy": "centroid",
+  "h3_resolution": 8,
+  "feature_count": 376,
+  "files": {
+    "source": {
+      "file": "Reserves.geojson",
+      "format": "geojson",
+      "size_mb": 7.9,
+      "tracked": false,
+      "download_url": "https://geoportal.hawaii.gov/datasets/reserves/explore"
+    },
+    "cleaned_csv": {
+      "file": "Reserves.csv",
+      "format": "csv",
+      "rows": 376,
+      "tracked": false
+    },
+    "h3_csv": {
+      "file": "RES_Zones_H3.csv",
+      "format": "csv",
+      "rows": 376,
+      "tracked": true
+    }
+  },
+  "scripts": {
+    "generate": "generate-reserves-h3.mjs",
+    "stage_a": "create-reserves-zones.cypher",
+    "stage_b": "load-reserves-zone-cells.cypher"
+  }
+}

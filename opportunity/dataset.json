@@ -1,0 +1,51 @@
+{
+  "$schema": "../dataset-schema.json",
+  "id": "opportunity",
+  "title": "Federal Opportunity Zones",
+  "description": "25 designated federal Opportunity Zone census tracts across Hawaii.",
+  "authority": {
+    "agency": "U.S. Department of the Treasury / CDFI Fund",
+    "portal": "Hawaii Statewide GIS Program",
+    "portal_url": "https://geoportal.hawaii.gov/datasets/opportunity-zones",
+    "license": "public-domain",
+    "update_frequency": "static"
+  },
+  "downloaded_at": "2026-02-22",
+  "source_vintage": "2018",
+  "last_checked": "2026-02-22",
+  "stale": false,
+  "coverage": {
+    "islands": ["hawaii", "kauai", "maui", "oahu"],
+    "scope": "statewide"
+  },
+  "zone_type": "opportunity",
+  "h3_strategy": "centroid",
+  "h3_resolution": 8,
+  "feature_count": 25,
+  "files": {
+    "source": {
+      "file": "Opportunity_Zones.geojson",
+      "format": "geojson",
+      "size_mb": 0.8,
+      "tracked": false,
+      "download_url": "https://geoportal.hawaii.gov/datasets/opportunity-zones/explore"
+    },
+    "cleaned_csv": {
+      "file": "Opportunity_Zones.csv",
+      "format": "csv",
+      "rows": 25,
+      "tracked": true
+    },
+    "h3_csv": {
+      "file": "OZ_Zones_H3.csv",
+      "format": "csv",
+      "rows": 25,
+      "tracked": true
+    }
+  },
+  "scripts": {
+    "generate": "generate-opportunity-h3.mjs",
+    "stage_a": "create-opportunity-zones.cypher",
+    "stage_b": "load-opportunity-zone-cells.cypher"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "../dataset-schema.json",
+  "id": "stations",
+  "title": "HART Transit Stations",
+  "description": "21 HART rail stations from East Kapolei to Ala Moana. Creates TransitCorridor node with ordered STOP_ON relationships and IntraZone res-14 anchors.",
+  "authority": {
+    "agency": "Honolulu Authority for Rapid Transportation (HART)",
+    "portal": "Hawaii Statewide GIS Program",
+    "portal_url": "https://geoportal.hawaii.gov/datasets/hart-transit-stations",
+    "license": "public-domain",
+    "update_frequency": "static"
+  },
+  "downloaded_at": "2026-02-23",
+  "source_vintage": "2024",
+  "last_checked": "2026-02-23",
+  "stale": false,
+  "coverage": {
+    "islands": ["oahu"],
+    "scope": "oahu-only"
+  },
+  "zone_type": "station",
+  "h3_strategy": "point-anchor",
+  "h3_resolution": 14,
+  "feature_count": 21,
+  "files": {
+    "source": {
+      "file": "HART_Transit_Stations_PUBLIC_-5232982977757013000.csv",
+      "format": "csv",
+      "size_mb": 0.003,
+      "tracked": false,
+      "download_url": "https://geoportal.hawaii.gov/datasets/hart-transit-stations/explore"
+    },
+    "cleaned_csv": {
+      "file": "STA_Stations.csv",
+      "format": "csv",
+      "rows": 21,
+      "tracked": true
+    },
+    "h3_csv": {
+      "file": "STA_IntraZones_H3.csv",
+      "format": "csv",
+      "rows": 21,
+      "tracked": true
+    }
+  },
+  "scripts": {
+    "generate": "generate-stations-h3.mjs",
+    "stage_a": "create-stations-zones.cypher",
+    "stage_b": "load-stations-zone-cells.cypher"
+  }
+}

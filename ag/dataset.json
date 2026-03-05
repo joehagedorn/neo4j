@@ -1,0 +1,50 @@
+{
+  "$schema": "../dataset-schema.json",
+  "id": "ag-ial",
+  "title": "Important Agricultural Lands (IAL)",
+  "description": "15 IAL docket designations across all islands. Dual-labeled (:Zone:IAL) for queryable agricultural land analysis.",
+  "authority": {
+    "agency": "Hawaii Land Use Commission",
+    "portal": "Hawaii Statewide GIS Program",
+    "portal_url": "https://geoportal.hawaii.gov/datasets/important-agricultural-lands",
+    "license": "public-domain",
+    "update_frequency": "on-change"
+  },
+  "downloaded_at": "2026-02-22",
+  "source_vintage": "2024",
+  "last_checked": "2026-02-22",
+  "stale": false,
+  "coverage": {
+    "islands": ["hawaii", "kauai", "maui", "oahu", "molokai"],
+    "scope": "statewide"
+  },
+  "zone_type": "ag",
+  "h3_strategy": "polyfill",
+  "h3_resolution": 8,
+  "feature_count": 15,
+  "files": {
+    "source": {
+      "file": "Important_Agricultural_Lands_(IAL).geojson",
+      "format": "geojson",
+      "size_mb": 0.7,
+      "tracked": true
+    },
+    "cleaned_csv": {
+      "file": "Important_Agricultural_Lands_(IAL).csv",
+      "format": "csv",
+      "rows": 15,
+      "tracked": true
+    },
+    "h3_csv": {
+      "file": "IAL_Zones_H3_res8.csv",
+      "format": "csv",
+      "rows": 694,
+      "tracked": true
+    }
+  },
+  "scripts": {
+    "generate": "generate-ial-h3-multires.mjs",
+    "stage_a": "Minimal_Cypher_to_create_IAL_Zones.cypher",
+    "stage_b": "load-zone-cells-res8.cypher"
+  }
+}

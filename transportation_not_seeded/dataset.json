@@ -1,0 +1,34 @@
+{
+  "$schema": "../dataset-schema.json",
+  "id": "transportation-not-seeded",
+  "title": "Transportation (Not Seeded)",
+  "description": "Bus stops and bike facilities downloaded but not yet integrated into the Zone/ZoneCell backbone. Candidates for future IntraZone or transit network modeling.",
+  "authority": {
+    "agency": "City and County of Honolulu - Department of Transportation Services",
+    "portal": "Hawaii Statewide GIS Program",
+    "portal_url": "https://geoportal.hawaii.gov",
+    "license": "public-domain",
+    "update_frequency": "on-change"
+  },
+  "downloaded_at": "2026-01-17",
+  "source_vintage": "2024",
+  "last_checked": "2026-01-20",
+  "stale": false,
+  "coverage": {
+    "islands": ["oahu"],
+    "scope": "oahu-only"
+  },
+  "zone_type": "transit",
+  "h3_strategy": "none",
+  "feature_count": 0,
+  "files": {
+    "source": {
+      "file": "THE_BUS_Stops.geojson",
+      "format": "geojson",
+      "size_mb": 0.85,
+      "tracked": false,
+      "download_url": "https://geoportal.hawaii.gov/datasets/thebus-stops/explore"
+    }
+  },
+  "scripts": {}
+}

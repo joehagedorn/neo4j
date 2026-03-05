@@ -1,0 +1,50 @@
+{
+  "$schema": "../dataset-schema.json",
+  "id": "parks",
+  "title": "Hawaii State Parks",
+  "description": "70 state park features including natural area reserves, historic sites, recreation areas, and monuments.",
+  "authority": {
+    "agency": "Hawaii Department of Land and Natural Resources",
+    "portal": "Hawaii Statewide GIS Program",
+    "portal_url": "https://geoportal.hawaii.gov/datasets/state-parks",
+    "license": "public-domain",
+    "update_frequency": "on-change"
+  },
+  "downloaded_at": "2026-02-23",
+  "source_vintage": "2024",
+  "last_checked": "2026-02-23",
+  "stale": false,
+  "coverage": {
+    "islands": ["hawaii", "kauai", "maui", "oahu", "molokai", "lanai"],
+    "scope": "statewide"
+  },
+  "zone_type": "park",
+  "h3_strategy": "centroid",
+  "h3_resolution": 8,
+  "feature_count": 70,
+  "files": {
+    "source": {
+      "file": "State_Parks.geojson",
+      "format": "geojson",
+      "size_mb": 1.2,
+      "tracked": true
+    },
+    "cleaned_csv": {
+      "file": "State_Parks.csv",
+      "format": "csv",
+      "rows": 70,
+      "tracked": true
+    },
+    "h3_csv": {
+      "file": "PRK_Zones_H3.csv",
+      "format": "csv",
+      "rows": 70,
+      "tracked": true
+    }
+  },
+  "scripts": {
+    "generate": "generate-parks-h3.mjs",
+    "stage_a": "create-parks-zones.cypher",
+    "stage_b": "load-parks-zone-cells.cypher"
+  }
+}

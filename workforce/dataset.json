@@ -1,0 +1,35 @@
+{
+  "$schema": "../dataset-schema.json",
+  "id": "workforce",
+  "title": "Hawaii Career Pathways",
+  "description": "13 career pathway clusters with 47 programs of study, 280 occupations, 366 training programs, and 47 credentials. Driver-based import from structured JSON.",
+  "authority": {
+    "agency": "Hawaii Department of Education - Career and Technical Education",
+    "portal": "Hawaii Career Pathways",
+    "portal_url": "https://www.hawaiicareerpathways.org",
+    "license": "public-domain",
+    "update_frequency": "annual"
+  },
+  "downloaded_at": "2026-02-19",
+  "source_vintage": "2025",
+  "last_checked": "2026-02-19",
+  "stale": false,
+  "coverage": {
+    "islands": ["hawaii", "kauai", "maui", "oahu", "molokai", "lanai"],
+    "scope": "statewide"
+  },
+  "zone_type": "career",
+  "h3_strategy": "none",
+  "feature_count": 13,
+  "files": {
+    "source": {
+      "file": "programs.json",
+      "format": "json",
+      "size_mb": 0.46,
+      "tracked": false
+    }
+  },
+  "scripts": {
+    "loader": "load-pathways.mjs"
+  }
+}

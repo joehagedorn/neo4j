@@ -1,0 +1,51 @@
+{
+  "$schema": "../dataset-schema.json",
+  "id": "rail",
+  "title": "HART Guideway Alignment",
+  "description": "4 HART rail guideway sections (center alignment) tracing the 20-mile elevated rail corridor on Oahu. Res-10 line-sample cells.",
+  "authority": {
+    "agency": "Honolulu Authority for Rapid Transportation (HART)",
+    "portal": "Hawaii Statewide GIS Program",
+    "portal_url": "https://geoportal.hawaii.gov/datasets/hart-guideway-alignment-line",
+    "license": "public-domain",
+    "update_frequency": "static"
+  },
+  "downloaded_at": "2026-02-22",
+  "source_vintage": "2024",
+  "last_checked": "2026-02-22",
+  "stale": false,
+  "coverage": {
+    "islands": ["oahu"],
+    "scope": "oahu-only"
+  },
+  "zone_type": "transit",
+  "h3_strategy": "line-sample",
+  "h3_resolution": 10,
+  "feature_count": 4,
+  "files": {
+    "source": {
+      "file": "HART_Guideway_Alignment_Line_PUBLIC_-8924040952061775621.geojson",
+      "format": "geojson",
+      "size_mb": 0.66,
+      "tracked": false,
+      "download_url": "https://geoportal.hawaii.gov/datasets/hart-guideway-alignment-line/explore"
+    },
+    "cleaned_csv": {
+      "file": "HART_Guideway_Alignment_Line_PUBLIC_-8255298299262351504.csv",
+      "format": "csv",
+      "rows": 4,
+      "tracked": true
+    },
+    "h3_csv": {
+      "file": "RAIL_Zones_H3.csv",
+      "format": "csv",
+      "rows": 234,
+      "tracked": true
+    }
+  },
+  "scripts": {
+    "generate": "generate-rail-h3.mjs",
+    "stage_a": "create-rail-zones.cypher",
+    "stage_b": "load-rail-zone-cells.cypher"
+  }
+}

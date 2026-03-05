@@ -1,0 +1,51 @@
+{
+  "$schema": "../../dataset-schema.json",
+  "id": "ag-baseline",
+  "title": "Agricultural Land Use - 2015 Baseline",
+  "description": "5,024 crop features across 6 islands from the 2015 HDOA agricultural land use baseline survey. 15 crop categories.",
+  "authority": {
+    "agency": "Hawaii Department of Agriculture",
+    "portal": "Hawaii Statewide GIS Program",
+    "portal_url": "https://geoportal.hawaii.gov/datasets/agricultural-land-use-2015-baseline",
+    "license": "public-domain",
+    "update_frequency": "static"
+  },
+  "downloaded_at": "2026-01-15",
+  "source_vintage": "2015",
+  "last_checked": "2026-02-22",
+  "stale": false,
+  "coverage": {
+    "islands": ["hawaii", "kauai", "maui", "oahu", "molokai", "lanai"],
+    "scope": "statewide"
+  },
+  "zone_type": "ag",
+  "h3_strategy": "centroid",
+  "h3_resolution": 8,
+  "feature_count": 5024,
+  "files": {
+    "source": {
+      "file": "Agricultural_Land_Use_-_2015_Baseline.geojson",
+      "format": "geojson",
+      "size_mb": 50,
+      "tracked": false,
+      "download_url": "https://geoportal.hawaii.gov/datasets/agricultural-land-use-2015-baseline/explore"
+    },
+    "cleaned_csv": {
+      "file": "Agricultural_Land_Use_-_2015_Baseline.csv",
+      "format": "csv",
+      "rows": 5024,
+      "tracked": true
+    },
+    "h3_csv": {
+      "file": "ALU_Zones_H3.csv",
+      "format": "csv",
+      "rows": 5024,
+      "tracked": true
+    }
+  },
+  "scripts": {
+    "generate": "generate-baseline-h3.mjs",
+    "stage_a": "create-baseline-zones.cypher",
+    "stage_b": "load-baseline-zone-cells.cypher"
+  }
+}

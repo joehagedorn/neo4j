@@ -1,0 +1,51 @@
+{
+  "$schema": "../dataset-schema.json",
+  "id": "planning",
+  "title": "Zoning - City and County of Honolulu",
+  "description": "1,965 zoning district polygons for Oahu from the City and County of Honolulu.",
+  "authority": {
+    "agency": "City and County of Honolulu - Department of Planning and Permitting",
+    "portal": "Hawaii Statewide GIS Program",
+    "portal_url": "https://geoportal.hawaii.gov/datasets/zoning-city-and-county-of-honolulu",
+    "license": "public-domain",
+    "update_frequency": "on-change"
+  },
+  "downloaded_at": "2026-02-22",
+  "source_vintage": "2024",
+  "last_checked": "2026-02-22",
+  "stale": false,
+  "coverage": {
+    "islands": ["oahu"],
+    "scope": "oahu-only"
+  },
+  "zone_type": "zoning",
+  "h3_strategy": "centroid",
+  "h3_resolution": 8,
+  "feature_count": 1965,
+  "files": {
+    "source": {
+      "file": "Zoning_(City_and_County_of_Honolulu).geojson",
+      "format": "geojson",
+      "size_mb": 37,
+      "tracked": false,
+      "download_url": "https://geoportal.hawaii.gov/datasets/zoning-city-and-county-of-honolulu/explore"
+    },
+    "cleaned_csv": {
+      "file": "Zoning_(City_and_County_of_Honolulu).csv",
+      "format": "csv",
+      "rows": 1965,
+      "tracked": true
+    },
+    "h3_csv": {
+      "file": "HNL_Zones_H3.csv",
+      "format": "csv",
+      "rows": 1965,
+      "tracked": true
+    }
+  },
+  "scripts": {
+    "generate": "generate-zoning-h3.mjs",
+    "stage_a": "create-zoning-zones.cypher",
+    "stage_b": "load-zoning-zone-cells.cypher"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "../dataset-schema.json",
+  "id": "wetland",
+  "title": "National Wetlands Inventory (NWI) - Oahu",
+  "description": "4,974 wetland features on Oahu from the USFWS National Wetlands Inventory. 7 wetland types including estuarine, riverine, and freshwater.",
+  "authority": {
+    "agency": "U.S. Fish and Wildlife Service",
+    "portal": "Hawaii Statewide GIS Program",
+    "portal_url": "https://geoportal.hawaii.gov/datasets/wetlands",
+    "license": "public-domain",
+    "update_frequency": "on-change"
+  },
+  "downloaded_at": "2026-01-25",
+  "source_vintage": "2024",
+  "last_checked": "2026-02-24",
+  "stale": false,
+  "coverage": {
+    "islands": ["oahu"],
+    "scope": "oahu-only"
+  },
+  "zone_type": "wetland",
+  "h3_strategy": "centroid",
+  "h3_resolution": 8,
+  "feature_count": 4974,
+  "files": {
+    "source": {
+      "file": "Hydrography_-2481727552189753624.geojson",
+      "format": "geojson",
+      "size_mb": 34,
+      "tracked": false,
+      "download_url": "https://geoportal.hawaii.gov/datasets/wetlands/explore"
+    },
+    "cleaned_csv": {
+      "file": "Wetlands.csv",
+      "format": "csv",
+      "rows": 4974,
+      "tracked": true,
+      "extract_script": "extract-wetland-csv.mjs"
+    },
+    "h3_csv": {
+      "file": "WET_Zones_H3.csv",
+      "format": "csv",
+      "rows": 4974,
+      "tracked": true
+    }
+  },
+  "scripts": {
+    "generate": "generate-wetland-h3.mjs",
+    "extract": "extract-wetland-csv.mjs",
+    "stage_a": "create-wetland-zones.cypher",
+    "stage_b": "load-wetland-zone-cells.cypher",
+    "loader": "seed-wetlands.mjs"
+  }
+}
