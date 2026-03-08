@@ -1,0 +1,2 @@
+cluster_id,name,cluster_scope,governance,steward_id,status,island,moku_id,description,data_source,provenance
+LC_ewa_keehi-lagoon,Keehi Lagoon Monitoring Network,monitoring,community,,active,oahu,oahu-ewa,Community water quality monitoring across 4 pond sites in Keehi Lagoon,manaolana water quality program,Community-sourced ongoing sampling since 2026-02

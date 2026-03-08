@@ -1,0 +1,5 @@
+cluster_id,site_zone_id,site_name,latitude,longitude
+LC_ewa_keehi-lagoon,ENV_loc1,North Pond,21.4764,-158.0119
+LC_ewa_keehi-lagoon,ENV_loc2,South Pond,21.4721,-158.0089
+LC_ewa_keehi-lagoon,ENV_loc3,East Pond,21.4751,-158.0076
+LC_ewa_keehi-lagoon,ENV_loc4,West Pond,21.4735,-158.0145

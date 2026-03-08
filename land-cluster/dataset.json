@@ -1,0 +1,52 @@
+{
+  "$schema": "../dataset-schema.json",
+  "id": "land-cluster",
+  "title": "Community Land Clusters",
+  "description": "Community-declared spatial groupings of monitoring sites, agricultural plots, or conservation areas. Dual-labeled (:Zone:LandCluster) for governance queries. Coverage derived bottom-up from constituent site coordinates.",
+  "authority": {
+    "agency": "Mokunet Research Commons",
+    "portal": "Aina-Design-Corp/mokulearner-research",
+    "portal_url": "https://github.com/Aina-Design-Corp/mokulearner-research",
+    "license": "CC-BY-4.0",
+    "update_frequency": "on-change"
+  },
+  "downloaded_at": "2026-03-06",
+  "source_vintage": "2026",
+  "last_checked": "2026-03-06",
+  "stale": false,
+  "coverage": {
+    "islands": ["oahu"],
+    "moku_ids": ["oahu-ewa"],
+    "scope": "moku-scoped"
+  },
+  "zone_type": "land_cluster",
+  "h3_strategy": "centroid",
+  "h3_resolution": 8,
+  "feature_count": 1,
+  "files": {
+    "source": {
+      "file": "LandCluster_Zones.csv",
+      "format": "csv",
+      "size_mb": 0.001,
+      "tracked": true
+    },
+    "cleaned_csv": {
+      "file": "LandCluster_Sites.csv",
+      "format": "csv",
+      "rows": 4,
+      "tracked": true
+    },
+    "h3_csv": {
+      "file": "LandCluster_Zones_H3.csv",
+      "format": "csv",
+      "rows": 0,
+      "tracked": true
+    }
+  },
+  "scripts": {
+    "generate": "generate-land-cluster-h3.mjs",
+    "stage_a": "create-land-cluster-zones.cypher",
+    "stage_b": "load-land-cluster-zone-cells.cypher",
+    "stage_c": "link-cluster-sites.cypher"
+  }
+}
