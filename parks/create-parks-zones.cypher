@@ -37,4 +37,9 @@ SET z.name            = park_name,
     z.data_source     = "DLNR Hawaii State Parks",
     z.provenance      = "Hawaii DLNR Division of State Parks dataset",
     z.created_at      = coalesce(z.created_at, datetime()),
-    z.updated_at      = datetime();
+    z.updated_at      = datetime()
+
+WITH z
+MERGE (zt:ZoneType {id: "park"})
+ON CREATE SET zt.label = "State Park"
+MERGE (z)-[:USES_TYPE]->(zt);

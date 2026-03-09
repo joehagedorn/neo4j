@@ -14,7 +14,7 @@ SET z.version     = coalesce(version, z.version),
     z.provenance  = coalesce(provenance, z.provenance),
     z.updated_at  = datetime()
 
-// 2) Attach ZoneCells by H3 (res-7 backbone — no :IAL label)
+// 2) Attach ZoneCells by H3 (res-8 backbone — no :IAL label)
 WITH z, h3
 MATCH (zc:ZoneCell {h3_cell: h3})
 MERGE (zc)-[:IN_ZONE]->(z);

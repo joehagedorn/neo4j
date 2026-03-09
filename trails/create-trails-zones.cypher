@@ -55,4 +55,9 @@ SET z.name              = trail_name,
     z.data_source       = "DLNR Parks & Recreation Trails",
     z.provenance        = "Hawaii DLNR Division of Forestry and Wildlife trail system",
     z.created_at        = coalesce(z.created_at, datetime()),
-    z.updated_at        = datetime();
+    z.updated_at        = datetime()
+
+WITH z
+MERGE (zt:ZoneType {id: "trail"})
+ON CREATE SET zt.label = "Recreational Trail"
+MERGE (z)-[:USES_TYPE]->(zt);

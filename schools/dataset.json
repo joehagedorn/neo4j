@@ -2,7 +2,7 @@
   "$schema": "../dataset-schema.json",
   "id": "schools",
   "title": "Hawaii Public Schools",
-  "description": "~288 public schools across all islands with grade ranges, complexes, and complex areas. IntraZone res-14 point anchors.",
+  "description": "~288 public schools as dual-labeled (:Zone:PublicSchool) nodes. Point features with res-14 IntraZone anchors. Each school is a potential food hub facility for facilities planning.",
   "authority": {
     "agency": "Hawaii Department of Education",
     "portal": "Hawaii Statewide GIS Program",
@@ -46,6 +46,7 @@
   "scripts": {
     "generate": "generate-schools-h3.mjs",
     "stage_a": "create-schools-zones.cypher",
-    "stage_b": "load-schools-zone-cells.cypher"
+    "stage_b": "load-schools-zone-cells.cypher",
+    "migration": "migrate-publicschool-to-dual-label.cypher"
   }
 }

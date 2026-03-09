@@ -1,7 +1,7 @@
 // ============================================================================
-// Stage B — Link Steward Zones to res-7 ZoneCells via IN_ZONE
+// Stage B — Link Steward Zones to res-8 ZoneCells via IN_ZONE
 //
-// Each government land parcel was mapped to a single res-7 H3 cell via centroid.
+// Each government land parcel was mapped to a single res-8 H3 cell via centroid.
 // This links the Zone node to the existing moku backbone ZoneCell.
 // No new ZoneCells are created — only IN_ZONE relationships.
 //
@@ -26,7 +26,7 @@ SET z.version     = coalesce(version, z.version),
     z.provenance  = coalesce(provenance, z.provenance),
     z.updated_at  = datetime()
 
-// 2) Attach to existing res-7 ZoneCell (backbone cells only)
+// 2) Attach to existing res-8 ZoneCell (backbone cells only)
 WITH z, h3
 MATCH (zc:ZoneCell {h3_cell: h3})
 MERGE (zc)-[:IN_ZONE]->(z);

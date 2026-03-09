@@ -17,22 +17,22 @@
   ↑ :WITHIN
 (:ZoneCell {h3_cell, resolution})    ← H3 spatial backbone (19,720 cells)
   ↑ :IN_ZONE                           centroid/midpoint overlays
-(:Zone {id, type, ...})              ← overlay layers (35,011 zones)
+(:Zone {id, type, ...})              ← overlay layers (40,103 zones)
   ↓ :USES_TYPE
-(:ZoneType {id, label})              ← classification vocabulary (10 types)
+(:ZoneType {id, label})              ← classification vocabulary (14 types)
 ```
 
 ### IntraZone Layer (Point Features)
 
 ```
-(:IntraZone {h3_cell, resolution})   ← res-14 point anchor (389 nodes)
+(:IntraZone {h3_cell, resolution})   ← res-14 point anchor (392 nodes)
   ↓ :ANCHORS
-(:Zone {type: "school"|"postsecondary"|"station"})
+(:Zone {type: "school"|"postsecondary"|"station"|"environment"})
   ↑ :WITHIN_CELL
 (:ZoneCell {resolution: 8})          ← backbone bridge for Moku traversal
 ```
 
-Point features (schools, post-secondary campuses, rail stations) use a
+Point features (schools, post-secondary campuses, rail stations, environment sites) use a
 dedicated IntraZone node at res-14 (~6.3 m²) instead of centroid-to-backbone
 IN_ZONE. Each IntraZone anchors exactly one Zone and optionally links to its
 parent res-8 backbone ZoneCell for Moku traversal.
@@ -71,9 +71,9 @@ Each station also has an IntraZone anchor for spatial positioning.
 | **Moku** | 33 | Hawaiian governance regions |
 | **MokuDistrict** | 33 | Planning polygons (1:1 with Moku) |
 | **ZoneCell** | 19,720 | H3 cells — 19,438 res-8 + 48 res-9 + 234 res-10 |
-| **Zone** | 39,985 | Spatial overlay zones across 11 types |
-| **ZoneType** | 11 | Vocabulary hub nodes |
-| **IntraZone** | 389 | Res-14 point-feature anchors (schools, post-secondary, stations) |
+| **Zone** | 40,103 | Spatial overlay zones across 14 types |
+| **ZoneType** | 14 | Vocabulary hub nodes |
+| **IntraZone** | 392 | Res-14 point-feature anchors (schools, post-secondary, stations, environment) |
 | **TransitCorridor** | 1 | HART Rail line (Oahu) |
 | **CareerPathway** | 13 | Career clusters from Hawaii Career Pathways |
 | **ProgramOfStudy** | 47 | Programs of study within clusters |
@@ -86,11 +86,11 @@ Each station also has an IntraZone anchor for spatial positioning.
 
 | Relationship | Count | Pattern |
 |-------------|-------|---------|
-| `USES_TYPE` | 39,985 | `(:Zone)-[:USES_TYPE]->(:ZoneType)` |
-| `IN_ZONE` | 37,029 | `(:ZoneCell)-[:IN_ZONE]->(:Zone)` |
-| `WITHIN` | 19,440 | `(:ZoneCell)-[:WITHIN]->(:Moku)` |
-| `ANCHORS` | 398 | `(:IntraZone)-[:ANCHORS]->(:Zone)` |
-| `WITHIN_CELL` | 378 | `(:IntraZone)-[:WITHIN_CELL]->(:ZoneCell)` |
+| `USES_TYPE` | 40,103 | `(:Zone)-[:USES_TYPE]->(:ZoneType)` |
+| `IN_ZONE` | 36,097 | `(:ZoneCell)-[:IN_ZONE]->(:Zone)` |
+| `WITHIN` | 19,625 | `(:ZoneCell)-[:WITHIN]->(:Moku)` |
+| `ANCHORS` | 401 | `(:IntraZone)-[:ANCHORS]->(:Zone)` |
+| `WITHIN_CELL` | 381 | `(:IntraZone)-[:WITHIN_CELL]->(:ZoneCell)` |
 | `HAS_TRAINING` | 653 | `(:ProgramOfStudy)-[:HAS_TRAINING {stage}]->(:TrainingProgram)` |
 | `PREPARES_FOR` | 524 | `(:ProgramOfStudy)-[:PREPARES_FOR {stage}]->(:Occupation)` |
 | `RECOMMENDS_CREDENTIAL` | 104 | `(:ProgramOfStudy)-[:RECOMMENDS_CREDENTIAL {stage}]->(:Credential)` |
@@ -105,13 +105,16 @@ Each station also has an IntraZone anchor for spatial positioning.
 | id | label | Zone count |
 |----|-------|-----------|
 | `ag` | Agricultural Planning Zone | 5,039 |
+| `environment` | Environmental Monitoring Site | 3 |
 | `highway` | Highway Segment | 2,075 |
 | `opportunity` | Federal Opportunity Zone | 25 |
+| `park` | State Park | 70 |
 | `postsecondary` | Post-Secondary Institution | 85 |
 | `reserve` | Reserve / Conservation Area | 376 |
 | `school` | Public School | 292 |
 | `station` | Transit Station | 21 |
 | `steward` | Government Land Ownership | 25,129 |
+| `trail` | Recreational Trail | 45 |
 | `transit` | Transit Corridor | 4 |
 | `wetland` | Wetland / Hydrography | 4,974 |
 | `zoning` | Zoning District | 1,965 |

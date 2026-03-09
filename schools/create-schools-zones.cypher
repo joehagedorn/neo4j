@@ -1,8 +1,12 @@
 // ============================================================================
-// Stage A — Create Zone nodes for Hawaii Public Schools
+// Stage A — Create dual-labeled Zone:PublicSchool nodes for Hawaii Public Schools
 //
-// Creates ~288 Zone nodes, one per public school.
-// Each zone captures school code, type, grade range, location, and district.
+// Creates ~288 dual-labeled (:Zone:PublicSchool) nodes, one per public school.
+// The :Zone label provides standard backbone traversal (IntraZone → ZoneCell → Moku).
+// The :PublicSchool label enables typed queries, vector search, and food hub
+// facility planning (each school is a potential food hub facility).
+//
+// Follows the same dual-label pattern as (:Zone:LandCluster) and (:ZoneCell:IAL).
 //
 // Prerequisites: None (first stage)
 // ============================================================================
@@ -34,7 +38,8 @@ WITH oid, sch_code, sch_name, sch_type, grade_from, grade_to,
      "SCH_" + toString(oid)     AS zone_id
 
 MERGE (z:Zone {id: zone_id})
-SET z.name         = sch_name,
+SET z:PublicSchool,
+    z.name         = sch_name,
     z.type         = "school",
     z.sch_code     = sch_code,
     z.sch_type     = sch_type,

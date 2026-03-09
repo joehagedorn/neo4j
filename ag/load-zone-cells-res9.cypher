@@ -2,7 +2,7 @@
 // Stage B — Resolution 9: Create ZoneCells for small IAL zones + Moku
 //
 // Creates new ZoneCell nodes at resolution 9 (~26 acres/cell)
-// for IAL dockets too small for res-7/res-8 coverage:
+// for IAL dockets too small for res-8 coverage:
 //   DR10-42 (679 ac), DR13-50 (190 ac), DR18-61 (463 ac), DR18-63 (230 ac)
 //
 // Links them to IAL Zone nodes via IN_ZONE
