@@ -29,9 +29,10 @@ Complete provenance, pipeline, and graph-relation reference for every inventorie
 17. [post-secondary — Higher Education Campuses](#post-secondary--higher-education-campuses)
 18. [stations — HART Rail Stations](#stations--hart-rail-stations)
 19. [environment — Monitoring Sites](#environment--monitoring-sites)
-20. [workforce — Career Pathways](#workforce--career-pathways)
-21. [transportation-not-seeded — Bus/Bike (Pending)](#transportation-not-seeded--busbike-pending)
-22. [Agent Update Check Protocol](#agent-update-check-protocol)
+20. [land-cluster — Community Land Clusters](#land-cluster--community-land-clusters)
+21. [workforce — Career Pathways](#workforce--career-pathways)
+22. [transportation-not-seeded — Bus/Bike (Pending)](#transportation-not-seeded--busbike-pending)
+23. [Agent Update Check Protocol](#agent-update-check-protocol)
 
 ---
 
@@ -86,6 +87,7 @@ Resolution reference: res-8 ~183 ac, res-9 ~26 ac, res-10 ~3.7 ac, res-14 ~6.3 m
 | post-secondary            | postsecondary | 85       | point-anchor | annual    | statewide   | `UNI_`  | 85 Zone + 77 IntraZone                                                                      |
 | stations                  | station       | 21       | point-anchor | static    | oahu-only   | `STA_`  | 21 Zone + 21 IntraZone + 1 TransitCorridor                                                  |
 | environment               | environment   | 3        | point-anchor | on-change | moku-scoped | `ENV_`  | 3 Zone + 3 IntraZone                                                                        |
+| land-cluster              | land_cluster  | 1        | centroid     | on-change | moku-scoped | `LC_`   | 1 :Zone:LandCluster + 4 CONTAINS_SITE links                                                 |
 | workforce                 | career        | 13       | none         | annual    | statewide   | —       | 13 CareerPathway + 47 ProgramOfStudy + 280 Occupation + 366 TrainingProgram + 47 Credential |
 | transportation-not-seeded | transit       | 0        | none         | on-change | oahu-only   | —       | Not integrated                                                                              |
 
@@ -313,7 +315,7 @@ Zone: {
   island: "oahu",
   area_m2: Float,
   perimeter_m: Float,
-  data_source: "City and County of Honolulu Zoning 2023"
+  data_source: "City and County of Honolulu Zoning 2024"
 }
 ```
 
@@ -1153,6 +1155,106 @@ Zone: {
 | ------------------------------------------- | ------ | ---- | ----------- |
 | `commons-samples/water-quality-dataset.csv` | CSV    | 3    | yes         |
 | `ENV_IntraZones_H3.csv`                     | CSV    | 3    | yes         |
+
+---
+
+## land-cluster — Community Land Clusters
+
+### Source & Provenance
+
+| Field                | Value                                                                  |
+| -------------------- | ---------------------------------------------------------------------- |
+| **Authority**        | Mokunet Research Commons                                               |
+| **Portal**           | `github.com/Aina-Design-Corp/mokulearner-research`                     |
+| **License**          | CC-BY-4.0                                                              |
+| **Source vintage**   | 2026                                                                   |
+| **Downloaded**       | 2026-03-06                                                             |
+| **Update frequency** | on-change (PR-based)                                                   |
+| **Coverage**         | Moku-scoped — `oahu-ewa` (seed); expands as clusters are declared      |
+
+### Description
+
+Community-declared spatial groupings of monitoring sites, agricultural plots, or conservation areas. Currently 1 seed cluster (`LC_ewa_keehi-lagoon`, 4 constituent sites) in Keehi Lagoon, oahu-ewa.
+
+LandClusters are **self-declared and fluid** — unlike IAL (legally designated state boundaries), a cluster's spatial footprint is derived bottom-up from the coordinates of its constituent environment Zone nodes. Multiple sites sharing the same res-8 backbone cell collapse to a single `IN_ZONE` edge.
+
+Uses **dual-label pattern** `(:Zone:LandCluster)`: standard backbone traversal via `:Zone`; governance-specific queries (e.g., find all clusters managed by a steward) via `:LandCluster`.
+
+A unique **Stage C** (`link-cluster-sites.cypher`) creates `CONTAINS_SITE` inter-zone edges — this is the only current transform that links two Zone types to each other rather than to backbone cells.
+
+| | IAL | LandCluster |
+|---|---|---|
+| **Authority** | State/County legal designation | Community self-declared |
+| **Boundary** | Official docket shapefiles | Derived from constituent sites |
+| **Mutability** | Fixed (legal process) | Fluid (sites added/removed) |
+| **ID prefix** | `IAL_` | `LC_` |
+
+### Pipeline
+
+| Step    | File                                                  | Purpose                                                                                            |
+| ------- | ----------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Generate | `land-cluster/generate-land-cluster-h3.mjs`          | Maps each constituent site lat/lng to res-8 parent cell; deduplicates; emits `LandCluster_Zones_H3.csv` |
+| Stage A  | `land-cluster/create-land-cluster-zones.cypher`      | Creates `(:Zone:LandCluster)` nodes (`LC_{moku}_{shortname}`) + ZoneType `land_cluster` + `USES_TYPE` |
+| Stage B  | `land-cluster/load-land-cluster-zone-cells.cypher`   | Links existing backbone `ZoneCell` nodes to cluster via `IN_ZONE`; no new cells created           |
+| Stage C  | `land-cluster/link-cluster-sites.cypher`             | Creates `CONTAINS_SITE` edges from `LandCluster` to constituent `Zone {type: "environment"}` nodes |
+
+### Graph Relations
+
+```
+(:ZoneType {id: "land_cluster", label: "Community Land Cluster"})
+  ↑ :USES_TYPE
+(:Zone:LandCluster {type: "land_cluster", id: "LC_*"})
+  ↑ :IN_ZONE
+(:ZoneCell {resolution: 8}) → :WITHIN → (:Moku)
+
+// Inter-zone governance link (Stage C)
+(:Zone:LandCluster) -[:CONTAINS_SITE]-> (:Zone {type: "environment"})
+
+// Traversal pattern (cluster → backbone)
+MATCH (lc:Zone:LandCluster {id: "LC_ewa_keehi-lagoon"})
+      <-[:IN_ZONE]-(zc:ZoneCell)-[:WITHIN]->(m:Moku)
+RETURN lc, zc, m
+```
+
+ZoneCells linked via `IN_ZONE` are **existing backbone cells only** — Stage B matches on `ZoneCell.h3_cell`, never creates new cells. This keeps the backbone stable.
+
+### Zone:LandCluster Node Properties
+
+```cypher
+Zone:LandCluster: {
+  // Zone identity
+  id: "LC_ewa_keehi-lagoon",
+  name: "Keehi Lagoon Monitoring Network",
+  type: "land_cluster",
+  // Cluster-specific
+  cluster_scope: "monitoring",       // monitoring | agriculture | conservation
+  governance: "community",           // community | project | trust
+  steward_id: String,                // optional link to GOV_* steward zone
+  status: "active",                  // active | proposed | archived
+  island: "oahu",
+  moku_id: "oahu-ewa",
+  description: "Community water quality monitoring across 4 pond sites in Keehi Lagoon",
+  version: String,                   // set by Stage B from H3 CSV
+  // Provenance
+  data_source: "manaolana water quality program",
+  provenance: "Community-sourced ongoing sampling since 2026-02",
+  created_at: datetime(),
+  updated_at: datetime()
+}
+```
+
+### Key Files
+
+| File                              | Format | Rows | Git Tracked |
+| --------------------------------- | ------ | ---- | ----------- |
+| `LandCluster_Zones.csv`           | CSV    | 1    | yes         |
+| `LandCluster_Sites.csv`           | CSV    | 4    | yes         |
+| `LandCluster_Zones_H3.csv`        | CSV    | 0*   | yes         |
+| `create-land-cluster-zones.cypher` | Cypher | —   | yes         |
+| `load-land-cluster-zone-cells.cypher` | Cypher | — | yes        |
+| `link-cluster-sites.cypher`       | Cypher | —    | yes         |
+
+*H3 CSV has 0 rows in the seed manifest (`feature_count: 1` cluster, no generated cells yet). Run `generate-land-cluster-h3.mjs` to populate.
 
 ---
 

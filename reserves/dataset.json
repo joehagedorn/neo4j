@@ -10,18 +10,25 @@
     "license": "public-domain",
     "update_frequency": "on-change"
   },
-  "downloaded_at": "2026-02-22",
-  "source_vintage": "2024",
-  "last_checked": "2026-02-22",
+  "downloaded_at": "2026-06-26",
+  "source_vintage": "2026",
+  "last_checked": "2026-06-26",
   "stale": false,
   "coverage": {
-    "islands": ["hawaii", "kauai", "maui", "oahu", "molokai", "lanai"],
+    "islands": [
+      "hawaii",
+      "kauai",
+      "maui",
+      "oahu",
+      "molokai",
+      "lanai"
+    ],
     "scope": "statewide"
   },
   "zone_type": "reserve",
   "h3_strategy": "centroid",
   "h3_resolution": 8,
-  "feature_count": 376,
+  "feature_count": 381,
   "files": {
     "source": {
       "file": "Reserves.geojson",
