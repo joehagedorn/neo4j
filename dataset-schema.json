@@ -3,7 +3,14 @@
   "title": "Transform Dataset Manifest",
   "description": "Provenance and file inventory for a mokunet spatial transform dataset.",
   "type": "object",
-  "required": ["id", "title", "authority", "downloaded_at", "zone_type", "files"],
+  "required": [
+    "id",
+    "title",
+    "authority",
+    "downloaded_at",
+    "zone_type",
+    "files"
+  ],
   "properties": {
     "id": {
       "type": "string",
@@ -19,15 +26,38 @@
     },
     "authority": {
       "type": "object",
-      "required": ["agency", "portal_url", "license", "update_frequency"],
+      "required": [
+        "agency",
+        "portal_url",
+        "license",
+        "update_frequency"
+      ],
       "properties": {
-        "agency": { "type": "string", "description": "Authoritative agency or organization" },
-        "portal": { "type": "string", "description": "Portal or program name" },
-        "portal_url": { "type": "string", "format": "uri", "description": "URL to the dataset page on the source portal" },
-        "license": { "type": "string", "description": "License or access terms (e.g., public-domain, CC-BY-4.0)" },
+        "agency": {
+          "type": "string",
+          "description": "Authoritative agency or organization"
+        },
+        "portal": {
+          "type": "string",
+          "description": "Portal or program name"
+        },
+        "portal_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the dataset page on the source portal"
+        },
+        "license": {
+          "type": "string",
+          "description": "License or access terms (e.g., public-domain, CC-BY-4.0)"
+        },
         "update_frequency": {
           "type": "string",
-          "enum": ["static", "annual", "quarterly", "on-change"],
+          "enum": [
+            "static",
+            "annual",
+            "quarterly",
+            "on-change"
+          ],
           "description": "How often the source portal updates this dataset"
         }
       }
@@ -56,15 +86,22 @@
       "properties": {
         "islands": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Islands covered by this dataset"
         },
         "moku_ids": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Specific moku IDs if dataset is moku-scoped"
         },
-        "scope": { "type": "string", "description": "Geographic scope description" }
+        "scope": {
+          "type": "string",
+          "description": "Geographic scope description"
+        }
       }
     },
     "zone_type": {
@@ -73,7 +110,13 @@
     },
     "h3_strategy": {
       "type": "string",
-      "enum": ["centroid", "polyfill", "line-sample", "point-anchor", "none"],
+      "enum": [
+        "centroid",
+        "polyfill",
+        "line-sample",
+        "point-anchor",
+        "none"
+      ],
       "description": "H3 cell generation strategy used by the generator script"
     },
     "h3_resolution": {
@@ -91,32 +134,73 @@
       "properties": {
         "source": {
           "type": "object",
-          "required": ["file", "format", "tracked"],
+          "required": [
+            "file",
+            "format",
+            "tracked"
+          ],
           "properties": {
-            "file": { "type": "string" },
-            "format": { "type": "string", "enum": ["geojson", "csv", "json"] },
-            "size_mb": { "type": "number" },
-            "tracked": { "type": "boolean", "description": "Whether this file is tracked in git" },
-            "download_url": { "type": "string", "format": "uri", "description": "Direct download URL for the source file" }
+            "file": {
+              "type": "string"
+            },
+            "format": {
+              "type": "string",
+              "enum": [
+                "geojson",
+                "csv",
+                "json"
+              ]
+            },
+            "size_mb": {
+              "type": "number"
+            },
+            "tracked": {
+              "type": "boolean",
+              "description": "Whether this file is tracked in git"
+            },
+            "download_url": {
+              "type": "string",
+              "format": "uri",
+              "description": "Direct download URL for the source file"
+            }
           }
         },
         "cleaned_csv": {
           "type": "object",
           "properties": {
-            "file": { "type": "string" },
-            "format": { "type": "string" },
-            "rows": { "type": "integer" },
-            "tracked": { "type": "boolean" },
-            "extract_script": { "type": "string", "description": "Script that extracts this CSV from source (if derived)" }
+            "file": {
+              "type": "string"
+            },
+            "format": {
+              "type": "string"
+            },
+            "rows": {
+              "type": "integer"
+            },
+            "tracked": {
+              "type": "boolean"
+            },
+            "extract_script": {
+              "type": "string",
+              "description": "Script that extracts this CSV from source (if derived)"
+            }
           }
         },
         "h3_csv": {
           "type": "object",
           "properties": {
-            "file": { "type": "string" },
-            "format": { "type": "string" },
-            "rows": { "type": "integer" },
-            "tracked": { "type": "boolean" }
+            "file": {
+              "type": "string"
+            },
+            "format": {
+              "type": "string"
+            },
+            "rows": {
+              "type": "integer"
+            },
+            "tracked": {
+              "type": "boolean"
+            }
           }
         }
       }
@@ -124,11 +208,34 @@
     "scripts": {
       "type": "object",
       "properties": {
-        "generate": { "type": "string", "description": "H3 cell generator script (.mjs)" },
-        "extract": { "type": "string", "description": "CSV extraction script (if source is GeoJSON)" },
-        "stage_a": { "type": "string", "description": "Stage A Cypher: create Zone nodes" },
-        "stage_b": { "type": "string", "description": "Stage B Cypher: load ZoneCells / IntraZones" },
-        "loader": { "type": "string", "description": "Driver-based loader script (alternative to Stage A/B Cypher)" }
+        "generate": {
+          "type": "string",
+          "description": "H3 cell generator script (.mjs)"
+        },
+        "extract": {
+          "type": "string",
+          "description": "CSV extraction script (if source is GeoJSON)"
+        },
+        "stage_a": {
+          "type": "string",
+          "description": "Stage A Cypher: create Zone nodes"
+        },
+        "stage_b": {
+          "type": "string",
+          "description": "Stage B Cypher: load ZoneCells / IntraZones"
+        },
+        "loader": {
+          "type": "string",
+          "description": "Driver-based loader script (alternative to Stage A/B Cypher)"
+        },
+        "stage_c": {
+          "type": "string",
+          "description": "Stage C Cypher: stamp per-cell attributes onto backbone ZoneCells"
+        },
+        "stage_d": {
+          "type": "string",
+          "description": "Stage D Cypher: seed vocabulary nodes + edges derived from cell attributes"
+        }
       }
     }
   }

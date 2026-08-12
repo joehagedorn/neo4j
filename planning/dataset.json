@@ -2,7 +2,7 @@
   "$schema": "../dataset-schema.json",
   "id": "planning",
   "title": "Zoning - City and County of Honolulu",
-  "description": "1,965 zoning district polygons for Oahu from the City and County of Honolulu.",
+  "description": "1,965 zoning district polygons for Oahu from the City and County of Honolulu. P2 (AG12): res-8 polyfill aggregates per-cell county zoning codes onto backbone ZoneCells; 8 v1 ZoningCode nodes + HAS_ZONING edges.",
   "authority": {
     "agency": "City and County of Honolulu - Department of Planning and Permitting",
     "portal": "Hawaii Statewide GIS Program",
@@ -15,7 +15,9 @@
   "last_checked": "2026-02-22",
   "stale": false,
   "coverage": {
-    "islands": ["oahu"],
+    "islands": [
+      "oahu"
+    ],
     "scope": "oahu-only"
   },
   "zone_type": "zoning",
@@ -41,11 +43,20 @@
       "format": "csv",
       "rows": 1965,
       "tracked": true
+    },
+    "cell_codes_csv": {
+      "file": "HNL_CellZoning_H3.csv",
+      "format": "csv",
+      "rows": 1906,
+      "tracked": true
     }
   },
   "scripts": {
     "generate": "generate-zoning-h3.mjs",
     "stage_a": "create-zoning-zones.cypher",
-    "stage_b": "load-zoning-zone-cells.cypher"
+    "stage_b": "load-zoning-zone-cells.cypher",
+    "stage_c": "load-zoning-cell-codes.cypher",
+    "stage_d": "create-zoning-codes.cypher",
+    "generate_cell_codes": "generate-zoning-cell-codes.mjs"
   }
 }
